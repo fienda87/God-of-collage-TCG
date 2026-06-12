@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { CardDetailModal } from '../components/modals/CardDetailModal';
 import { ALL_CARDS, type CardData, ELEMENT_COLORS, RARITY_COLORS } from '../data/cards';
+import { useCollectionStore } from '../store/collectionStore';
 
 const ELEMENTS = ['Ambis', 'Santuy', 'Bucin'] as const;
 const RARITIES = ['Common', 'Rare', 'Super Rare', 'Ultra Rare', 'Exclusive Legendary'] as const;
@@ -10,8 +11,24 @@ export const Collection: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [filterElement, setFilterElement] = useState<string>('All');
   const [filterRarity, setFilterRarity] = useState<string>('All');
+  const [viewMode, setViewMode] = useState<'koleksi' | 'galeri'>('koleksi');
+  
+  const ownedCards = useCollectionStore((state) => state.cards);
 
-  const filteredCards = ALL_CARDS.filter(c => {
+  const baseCards = useMemo(() => {
+    if (viewMode === 'galeri') return ALL_CARDS;
+    
+    // Deduplicate owned cards based on ID
+    const uniqueOwned = new Map();
+    ownedCards.forEach((c: CardData) => {
+      if (!uniqueOwned.has(c.id)) {
+        uniqueOwned.set(c.id, c);
+      }
+    });
+    return Array.from(uniqueOwned.values());
+  }, [viewMode, ownedCards]);
+
+  const filteredCards = baseCards.filter(c => {
     if (filterElement !== 'All' && c.element !== filterElement) return false;
     if (filterRarity !== 'All' && c.rarity !== filterRarity) return false;
     return true;
@@ -22,17 +39,37 @@ export const Collection: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen px-4 md:px-12 pt-8 pb-20 overflow-x-hidden max-w-[1200px] mx-auto">
-      {/* Title */}
-      <motion.h1
-        className="text-[55px] md:text-[65px] text-white leading-[1] m-0 mb-4 font-[800]"
-        initial={{ y: -30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-      >
-        CARD-DEX.
-      </motion.h1>
-      <p className="text-[20px] font-[800] text-white/60 m-0 mb-4">
-        {ALL_CARDS.length} kartu • {RARITIES.length} tingkat rarity
-      </p>
+      {/* Title & Mode Toggle */}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-6">
+        <div>
+          <motion.h1
+            className="text-[55px] md:text-[65px] text-white leading-[1] m-0 mb-2 font-[800]"
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+          >
+            CARD-DEX.
+          </motion.h1>
+          <p className="text-[16px] md:text-[20px] font-[800] text-white/60 m-0">
+            {viewMode === 'koleksi' ? `Kamu memiliki ${baseCards.length} dari ${ALL_CARDS.length} kartu` : `${ALL_CARDS.length} kartu • ${RARITIES.length} tingkat rarity`}
+          </p>
+        </div>
+        
+        {/* Toggle View Mode */}
+        <div className="flex mt-4 md:mt-0 bg-white/10 rounded-full p-1 border border-white/20">
+          <button
+            onClick={() => setViewMode('koleksi')}
+            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${viewMode === 'koleksi' ? 'bg-[#d7b73b] text-black shadow-lg' : 'text-white/60 hover:text-white'}`}
+          >
+            Koleksiku
+          </button>
+          <button
+            onClick={() => setViewMode('galeri')}
+            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${viewMode === 'galeri' ? 'bg-[#d7b73b] text-black shadow-lg' : 'text-white/60 hover:text-white'}`}
+          >
+            Galeri (Semua)
+          </button>
+        </div>
+      </div>
 
       {/* Element Filter Bar */}
       <div className="flex gap-3 mb-3 flex-wrap">
