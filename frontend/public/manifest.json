@@ -1,0 +1,21 @@
+{
+  "name": "God of College TCG",
+  "short_name": "GOC TCG",
+  "description": "Koleksi Kartu Mahasiswa Paling Realistis!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#d7b73b",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
