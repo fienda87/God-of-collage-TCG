@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors — DESIGN.md tokens */
+  --color-game-night-black: #000000;
+  --color-card-white: #ffffff;
+  --color-signal-red: #fe2f2f;
+  --color-royal-violet: #7333f1;
+  --color-antique-gold: #d7b73b;
+  --color-lemon-card: #fffe5b;
+  --color-lavender-card: #ede5ff;
+  --color-cobalt-card: #1b5bff;
+  --color-sky-card: #a0e9ff;
+  --color-bubblegum-card: #ffa0f0;
+  --color-mint-card: #b4ff91;
+  --color-tangerine-card: #ff9559;
+  --color-stage1-glow: #1b5bff;
+  --color-stage2-glow: #d7b73b;
+
+  /* Typography */
+  --font-helvetica: 'Helvetica Neue LT', 'Helvetica Neue', Helvetica, Arial, 'Inter', sans-serif;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-heavy: 800;
+
+  /* Spacing — DESIGN.md tokens */
+  --spacing-12: 12px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-60: 60px;
+  --spacing-100: 100px;
+  --spacing-160: 160px;
+
+  /* Border Radius — DESIGN.md tokens */
+  --radius-card: 13px;
+  --radius-badge: 38px;
+  --radius-button: 38px;
+  --radius-input: 38px;
+
+  /* Shadows — DESIGN.md: ONLY inset, no drop shadows */
+  --shadow-on-dark: rgb(255, 255, 255) 0px 0px 0px 2px inset;
+  --shadow-on-light: rgb(0, 0, 0) 0px 0px 0px 2px inset;
+}
+
+/* Base styles following DESIGN.md */
+* {
+  font-family: var(--font-helvetica);
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-game-night-black);
+  color: var(--color-card-white);
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 38px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-signal-red);
+  color: var(--color-card-white);
+}
