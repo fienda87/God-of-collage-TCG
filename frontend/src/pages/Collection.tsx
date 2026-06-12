@@ -19,7 +19,7 @@ export const Collection: React.FC = () => {
     if (viewMode === 'galeri') return ALL_CARDS;
     
     // Deduplicate owned cards based on ID
-    const uniqueOwned = new Map();
+    const uniqueOwned = new Map<string, CardData>();
     ownedCards.forEach((c: CardData) => {
       if (!uniqueOwned.has(c.id)) {
         uniqueOwned.set(c.id, c);
