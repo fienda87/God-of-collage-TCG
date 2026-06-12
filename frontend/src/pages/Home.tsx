@@ -10,13 +10,14 @@ import ShinyText from '../components/ui/ShinyText';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const { canOpenGacha, getSecondsUntilNextGacha } = useEnergyStore();
+  const { canOpenGacha, getSecondsUntilNextGacha, gachaCount } = useEnergyStore();
   
   const [timeLeft, setTimeLeft] = useState(getSecondsUntilNextGacha());
   const canOpen = canOpenGacha();
 
   useEffect(() => {
-    if (canOpen) return;
+    // If we have max tokens, we don't need a timer
+    if (gachaCount >= 2) return;
     
     const interval = setInterval(() => {
       const remaining = getSecondsUntilNextGacha();
@@ -27,7 +28,7 @@ export const Home: React.FC = () => {
     }, 1000);
     
     return () => clearInterval(interval);
-  }, [canOpen, getSecondsUntilNextGacha]);
+  }, [gachaCount, getSecondsUntilNextGacha]);
 
   // Format time (MM:SS)
   const formatTime = (seconds: number) => {
@@ -111,17 +112,29 @@ export const Home: React.FC = () => {
           }}
         >
           <div className="absolute inset-0 bg-[#d7b73b] opacity-20 blur-3xl rounded-full" />
+          
+          {/* Box Image */}
           <img 
             src="/images/booster box.webp" 
             alt="Booster Box" 
             className="w-full h-full object-contain relative z-10 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
           />
-          {!canOpen && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-black/80 text-white font-bold px-4 py-2 rounded-lg text-center shadow-lg border border-[#d7b73b]">
-              <div className="text-sm text-[#d7b73b] mb-1">Cooldown</div>
-              <div className="text-xl">{formatTime(timeLeft)}</div>
-            </div>
-          )}
+          
+          {/* Status Overlay */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
+            {!canOpen && (
+              <div className="bg-black/80 text-white font-bold px-4 py-2 rounded-lg text-center shadow-lg border border-[#d7b73b]">
+                <div className="text-sm text-[#d7b73b] mb-1">Cooldown</div>
+                <div className="text-xl">{formatTime(timeLeft)}</div>
+              </div>
+            )}
+          </div>
+
+          {/* Tokens Badge */}
+          <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-sm border border-[#d7b73b] px-3 py-1 rounded-full flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#d7b73b] animate-pulse" />
+            <span className="text-[#d7b73b] font-bold">{gachaCount} / 2 Tiket</span>
+          </div>
         </motion.div>
         
         {/* Actions */}
@@ -137,7 +150,7 @@ export const Home: React.FC = () => {
             onClick={() => navigate('/gacha')}
             disabled={!canOpen}
           >
-            {canOpen ? "BUKA PACK SEKARANG" : `TUNGGU ${formatTime(timeLeft)}`}
+            {canOpen ? `BUKA PACK (${gachaCount} TERSISA)` : `TUNGGU ${formatTime(timeLeft)}`}
           </Button>
           
           <div className="flex w-full gap-4 mt-2">

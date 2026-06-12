@@ -426,9 +426,15 @@ export const Gacha: React.FC = () => {
               <Button variant="outline" onClick={() => navigate('/collection')}>
                 Koleksi Ku
               </Button>
-              <Button onClick={handleReset}>
-                Buka Lagi
-              </Button>
+              {canOpen ? (
+                <Button onClick={handleReset}>
+                  Buka Lagi
+                </Button>
+              ) : (
+                <Button onClick={() => navigate('/')}>
+                  Kembali ke Menu
+                </Button>
+              )}
             </div>
           </motion.div>
         )}
