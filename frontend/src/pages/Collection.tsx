@@ -23,8 +23,11 @@ export const Collection: React.FC = () => {
     ownedCards.forEach((c: CardData) => {
       if (!uniqueOwned.has(c.id)) {
         // Find the fresh card data from ALL_CARDS to ensure updated image_url
-        const freshCard = ALL_CARDS.find(card => card.id === c.id);
-        uniqueOwned.set(c.id, freshCard || c);
+        // Match by name instead of id because generatePull randomizes the id
+        const freshCard = ALL_CARDS.find(card => card.name === c.name);
+        
+        // We still use c.id to keep the unique instance id for React keys
+        uniqueOwned.set(c.id, freshCard ? { ...freshCard, id: c.id } : c);
       }
     });
     return Array.from(uniqueOwned.values());
