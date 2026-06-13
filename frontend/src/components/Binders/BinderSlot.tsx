@@ -2,7 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Plus, GripHorizontal, Trash2, X } from 'lucide-react';
-import { type CardData, ELEMENT_COLORS } from '../../data/cards';
+import { type CardData } from '../../data/cards';
 
 interface BinderSlotProps {
   id: string; // The dnd-kit unique id, e.g., 'slot-0'
@@ -50,7 +50,7 @@ export const BinderSlot: React.FC<BinderSlotProps> = ({
     );
   }
 
-  const elementColor = ELEMENT_COLORS[card.element as keyof typeof ELEMENT_COLORS] || '#ffffff';
+
 
   return (
     <div
@@ -66,12 +66,6 @@ export const BinderSlot: React.FC<BinderSlotProps> = ({
       <div 
         className="absolute inset-0 bg-contain bg-center bg-no-repeat"
         style={{ backgroundImage: `url('${card.image_url || card.imageUrl}')` }}
-      />
-      
-      {/* Element Accent */}
-      <div 
-        className="absolute top-0 left-0 w-full h-1"
-        style={{ backgroundColor: elementColor }}
       />
 
       {/* Top-Right Remove Button for Mobile (Instant Tap) */}

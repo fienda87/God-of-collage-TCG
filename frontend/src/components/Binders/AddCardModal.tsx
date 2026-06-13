@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Search } from 'lucide-react';
 import { useCollectionStore } from '../../store/collectionStore';
-import { type CardData, ELEMENT_COLORS, ALL_CARDS } from '../../data/cards';
+import { type CardData, ALL_CARDS } from '../../data/cards';
 
 interface AddCardModalProps {
   isOpen: boolean;
@@ -91,15 +91,8 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                       className="absolute inset-0 bg-contain bg-center bg-no-repeat"
                       style={{ backgroundImage: `url('${card.image_url || card.imageUrl}')` }}
                     />
-                    <div 
-                      className="absolute top-0 left-0 w-full h-1"
-                      style={{ backgroundColor: ELEMENT_COLORS[card.element as keyof typeof ELEMENT_COLORS] || '#fff' }}
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-black/80 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform">
-                      <p className="text-white text-xs font-[800] truncate">{card.name}</p>
-                    </div>
                     {/* Quantity Badge */}
-                    <div className="absolute top-2 right-2 bg-black/80 text-white text-xs font-[800] px-2 py-1 rounded">
+                    <div className="absolute top-2 right-2 bg-black/80 text-white text-xs font-[800] px-2 py-1 rounded z-10">
                       x{count}
                     </div>
                   </button>
