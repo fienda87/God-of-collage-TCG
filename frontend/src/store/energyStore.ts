@@ -24,6 +24,11 @@ export const useEnergyStore = create<GachaState>()(
       setGachaData: (data) => set((state) => ({ ...state, ...data })),
       checkRefill: () => {
         const state = get();
+        if (state.gachaCount > MAX_GACHA) {
+          set({ gachaCount: MAX_GACHA, lastGachaTime: null });
+          return;
+        }
+        
         if (state.gachaCount >= MAX_GACHA || !state.lastGachaTime) return;
         
         const now = Date.now();
