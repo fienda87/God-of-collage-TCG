@@ -3,14 +3,31 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { PageTransition } from './PageTransition';
 
-const Home = React.lazy(() => import('../../pages/Home').then(m => ({ default: m.Home })));
-const Gacha = React.lazy(() => import('../../pages/Gacha').then(m => ({ default: m.Gacha })));
-const Collection = React.lazy(() => import('../../pages/Collection').then(m => ({ default: m.Collection })));
-const Rules = React.lazy(() => import('../../pages/Rules').then(m => ({ default: m.Rules })));
-const Login = React.lazy(() => import('../../pages/Login').then(m => ({ default: m.Login })));
-const Register = React.lazy(() => import('../../pages/Register').then(m => ({ default: m.Register })));
-const BindersPage = React.lazy(() => import('../../pages/Binders/BindersPage').then(m => ({ default: m.BindersPage })));
-const BinderDetailPage = React.lazy(() => import('../../pages/Binders/BinderDetailPage').then(m => ({ default: m.BinderDetailPage })));
+const lazyWithRetry = (componentImport: () => Promise<any>) => {
+  return React.lazy(async () => {
+    const pageHasReloaded = sessionStorage.getItem('page-reload-chunk-error');
+    try {
+      const component = await componentImport();
+      sessionStorage.removeItem('page-reload-chunk-error');
+      return component;
+    } catch (error) {
+      if (!pageHasReloaded) {
+        sessionStorage.setItem('page-reload-chunk-error', 'true');
+        window.location.reload();
+      }
+      throw error;
+    }
+  });
+};
+
+const Home = lazyWithRetry(() => import('../../pages/Home').then(m => ({ default: m.Home })));
+const Gacha = lazyWithRetry(() => import('../../pages/Gacha').then(m => ({ default: m.Gacha })));
+const Collection = lazyWithRetry(() => import('../../pages/Collection').then(m => ({ default: m.Collection })));
+const Rules = lazyWithRetry(() => import('../../pages/Rules').then(m => ({ default: m.Rules })));
+const Login = lazyWithRetry(() => import('../../pages/Login').then(m => ({ default: m.Login })));
+const Register = lazyWithRetry(() => import('../../pages/Register').then(m => ({ default: m.Register })));
+const BindersPage = lazyWithRetry(() => import('../../pages/Binders/BindersPage').then(m => ({ default: m.BindersPage })));
+const BinderDetailPage = lazyWithRetry(() => import('../../pages/Binders/BinderDetailPage').then(m => ({ default: m.BinderDetailPage })));
 
 const LoadingFallback = () => (
   <div className="w-full h-[60vh] flex items-center justify-center">
