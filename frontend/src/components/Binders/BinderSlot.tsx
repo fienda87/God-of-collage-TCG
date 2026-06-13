@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Plus, GripHorizontal, Trash2 } from 'lucide-react';
+import { Plus, GripHorizontal, Trash2, X } from 'lucide-react';
 import { type CardData, ELEMENT_COLORS } from '../../data/cards';
 
 interface BinderSlotProps {
@@ -56,13 +56,15 @@ export const BinderSlot: React.FC<BinderSlotProps> = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`relative aspect-[2.5/3.5] bg-white rounded-xl shadow-lg border-2 border-black overflow-hidden group ${
+      {...attributes}
+      {...listeners}
+      className={`relative aspect-[2.5/3.5] bg-zinc-950 rounded-xl shadow-lg border-2 border-black overflow-hidden group cursor-grab active:cursor-grabbing select-none ${
         isOverlay ? 'scale-105 shadow-2xl z-50' : ''
       }`}
     >
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-contain bg-center bg-no-repeat"
         style={{ backgroundImage: `url('${card.image_url || card.imageUrl}')` }}
       />
       
@@ -72,23 +74,36 @@ export const BinderSlot: React.FC<BinderSlotProps> = ({
         style={{ backgroundColor: elementColor }}
       />
 
-      {/* Hover overlay actions */}
-      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
+      {/* Top-Right Remove Button for Mobile (Instant Tap) */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemoveClick(slotPosition);
+        }}
+        className="absolute top-2 right-2 z-30 p-1 bg-red-500 text-white rounded-full shadow-lg border border-black hover:bg-red-600 transition-colors md:hidden flex items-center justify-center"
+        title="Remove card"
+      >
+        <X size={14} />
+      </button>
+
+      {/* Hover overlay actions (Desktop only / hidden on mobile) */}
+      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex flex-col items-center justify-center p-4">
         <h4 className="text-white font-[800] uppercase text-sm text-center mb-4 leading-tight">
           {card.name}
         </h4>
         
         <div className="flex space-x-3">
-          <button
-            {...attributes}
-            {...listeners}
+          <div
             className="p-3 bg-white text-black rounded-full hover:bg-gray-200 cursor-grab active:cursor-grabbing"
             title="Drag to reorder"
           >
             <GripHorizontal size={20} />
-          </button>
+          </div>
           <button
-            onClick={() => onRemoveClick(slotPosition)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemoveClick(slotPosition);
+            }}
             className="p-3 bg-red-500 text-white rounded-full hover:bg-red-600"
             title="Remove card"
           >

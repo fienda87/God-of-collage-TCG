@@ -85,10 +85,10 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                     key={card.id}
                     onClick={() => onSelect(card.id)}
                     disabled={loading}
-                    className="relative aspect-[2.5/3.5] bg-white rounded-lg shadow-md border-2 border-transparent hover:border-blue-500 hover:scale-105 transition-all overflow-hidden disabled:opacity-50 group"
+                    className="relative aspect-[2.5/3.5] bg-zinc-950 rounded-lg shadow-md border-2 border-transparent hover:border-blue-500 hover:scale-105 transition-all overflow-hidden disabled:opacity-50 group"
                   >
                     <div 
-                      className="absolute inset-0 bg-cover bg-center"
+                      className="absolute inset-0 bg-contain bg-center bg-no-repeat"
                       style={{ backgroundImage: `url('${card.image_url || card.imageUrl}')` }}
                     />
                     <div 
