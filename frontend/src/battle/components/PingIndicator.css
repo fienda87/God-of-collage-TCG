@@ -1,0 +1,73 @@
+.ping-indicator {
+  position: fixed;
+  top: 8px;
+  right: 48px;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(10, 10, 18, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid #2a2a42;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #a0a0b8;
+  transition: all 200ms ease;
+  animation: fadeIn 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ping-indicator__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ping-indicator--good {
+  border-color: #22c55e40;
+  color: #22c55e;
+}
+
+.ping-indicator--good .ping-indicator__dot {
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e80;
+}
+
+.ping-indicator--warn {
+  border-color: #fbbf2440;
+  color: #fbbf24;
+}
+
+.ping-indicator--warn .ping-indicator__dot {
+  background: #fbbf24;
+  box-shadow: 0 0 8px #fbbf2480;
+  animation: pingPulse 1s ease-in-out infinite;
+}
+
+.ping-indicator--bad {
+  border-color: #ef444440;
+  color: #ef4444;
+}
+
+.ping-indicator--bad .ping-indicator__dot {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef444480;
+  animation: pingPulse 500ms ease-in-out infinite;
+}
+
+.ping-indicator__value {
+  white-space: nowrap;
+}
+
+@keyframes pingPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

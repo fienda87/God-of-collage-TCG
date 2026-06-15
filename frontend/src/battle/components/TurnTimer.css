@@ -1,0 +1,113 @@
+.turn-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 50;
+}
+
+.turn-timer__ring {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.turn-timer__svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.turn-timer__bg {
+  stroke: #2a2a42;
+}
+
+.turn-timer__progress {
+  stroke: #7c3aed;
+  filter: drop-shadow(0 0 6px #7c3aed60);
+  transition: stroke-dashoffset 1s linear, stroke 300ms ease;
+}
+
+.turn-timer--mine .turn-timer__progress {
+  stroke: #7c3aed;
+}
+
+.turn-timer--theirs .turn-timer__progress {
+  stroke: #6b7280;
+}
+
+.turn-timer--warning .turn-timer__progress {
+  stroke: #ef4444;
+  animation: pulseWarning 500ms ease-in-out infinite;
+  filter: drop-shadow(0 0 8px #ef444480);
+}
+
+.turn-timer--warning .turn-timer__text {
+  color: #ef4444;
+  animation: pulseText 500ms ease-in-out infinite;
+}
+
+.turn-timer__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #fff;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.turn-timer__label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+  text-align: center;
+}
+
+.turn-timer--mine .turn-timer__label {
+  color: #a855f7;
+}
+
+.turn-timer--theirs .turn-timer__label {
+  color: #6b7280;
+}
+
+.turn-timer--warning .turn-timer__label {
+  color: #ef4444;
+}
+
+@keyframes pulseWarning {
+  0%, 100% { stroke-width: 4; }
+  50% { stroke-width: 5; }
+}
+
+@keyframes pulseText {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* Turn timer in arena divider */
+.arena-divider__timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.arena-divider__timer .turn-timer__ring {
+  width: 44px;
+  height: 44px;
+}
+
+.arena-divider__timer .turn-timer__text {
+  font-size: 14px;
+}
+
+.arena-divider__timer .turn-timer__label {
+  font-size: 8px;
+}

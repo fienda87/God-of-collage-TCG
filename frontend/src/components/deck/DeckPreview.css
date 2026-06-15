@@ -1,0 +1,120 @@
+.deck-preview-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.deck-preview-list::-webkit-scrollbar {
+  width: 6px;
+}
+.deck-preview-list::-webkit-scrollbar-track {
+  background: #151522;
+  border-radius: 3px;
+}
+.deck-preview-list::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 3px;
+}
+
+.preview__stage h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #aaa;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+.stage__empty {
+  font-size: 12px;
+  color: #555;
+  margin: 0;
+  font-style: italic;
+}
+
+.stage__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preview-card {
+  display: flex;
+  align-items: center;
+  background: #2a2a40;
+  border-radius: 6px;
+  padding: 6px;
+  gap: 10px;
+}
+
+.preview-card__img {
+  width: 40px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.preview-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.preview-card__name {
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.preview-card__quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-card__quantity button {
+  background: #151522;
+  border: 1px solid #444;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.preview-card__quantity button:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.preview-card__quantity span {
+  font-size: 14px;
+  min-width: 12px;
+  text-align: center;
+}
+
+.preview-card__remove {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.preview-card__remove:hover {
+  background: rgba(239, 68, 68, 0.1);
+}

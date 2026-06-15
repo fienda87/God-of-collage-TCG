@@ -6,6 +6,7 @@ export const Navbar: React.FC = () => {
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
     { label: 'Koleksi', ariaLabel: 'View collection', link: '/collection' },
     { label: 'Binder', ariaLabel: 'View binder', link: '/binders' },
+    { label: 'Battle Online', ariaLabel: 'Play online battle', link: '/battle' },
     { label: 'Aturan', ariaLabel: 'Read rules', link: '/rules' },
   ];
 

@@ -1,0 +1,68 @@
+.card-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Custom scrollbar */
+.card-collection-grid::-webkit-scrollbar {
+  width: 8px;
+}
+.card-collection-grid::-webkit-scrollbar-track {
+  background: #151522;
+  border-radius: 4px;
+}
+.card-collection-grid::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.collection-empty {
+  text-align: center;
+  color: #aaa;
+  margin-top: 40px;
+}
+
+.collection-card {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  aspect-ratio: 2.5 / 3.5;
+}
+
+.collection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.collection-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.collection-card__overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(59, 130, 246, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.collection-card:hover .collection-card__overlay {
+  opacity: 1;
+}
+
+.add-icon {
+  font-size: 40px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
