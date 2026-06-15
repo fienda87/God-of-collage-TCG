@@ -189,24 +189,24 @@ export const Shop: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-white/10 mb-8 relative">
+      <div className="flex border-b border-white/10 mb-8 relative bg-[#121214]/80 backdrop-blur-md px-2 rounded-xl">
         <button
           onClick={() => setActiveTab('cards')}
-          className={`shop-tab-btn px-6 py-3 font-[800] text-[15px] transition-all relative ${activeTab === 'cards' ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+          className={`shop-tab-btn px-6 py-4 font-[800] text-[15px] transition-all relative ${activeTab === 'cards' ? 'text-white' : 'text-white/60 hover:text-white/90'}`}
         >
           Tukarkan Kartu
           {activeTab === 'cards' && <motion.div layoutId="active-tab-indicator" className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#d7b73b]" />}
         </button>
         <button
           onClick={() => setActiveTab('items')}
-          className={`shop-tab-btn px-6 py-3 font-[800] text-[15px] transition-all relative ${activeTab === 'items' ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+          className={`shop-tab-btn px-6 py-4 font-[800] text-[15px] transition-all relative ${activeTab === 'items' ? 'text-white' : 'text-white/60 hover:text-white/90'}`}
         >
           Beli Item
           {activeTab === 'items' && <motion.div layoutId="active-tab-indicator" className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#d7b73b]" />}
         </button>
         <button
           onClick={() => setActiveTab('recycle')}
-          className={`shop-tab-btn px-6 py-3 font-[800] text-[15px] transition-all relative ${activeTab === 'recycle' ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+          className={`shop-tab-btn px-6 py-4 font-[800] text-[15px] transition-all relative ${activeTab === 'recycle' ? 'text-white' : 'text-white/60 hover:text-white/90'}`}
         >
           Daur Ulang ({duplicateList.length})
           {activeTab === 'recycle' && <motion.div layoutId="active-tab-indicator" className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#d7b73b]" />}
@@ -232,7 +232,7 @@ export const Shop: React.FC = () => {
                   className={`px-4 py-1.5 rounded-full text-[12px] font-[800] border transition-all shop-btn whitespace-nowrap ${
                     selectedRarityFilter === rarity
                       ? 'bg-white text-black border-white'
-                      : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30'
+                      : 'bg-[#121214] text-white/80 border-white/15 hover:border-white/30 hover:bg-[#1e1e22]'
                   }`}
                 >
                   {rarity}
