@@ -1,6 +1,69 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const STAGGER = 0.025;
+
+const TextRoll: React.FC<{
+  children: string;
+  className?: string;
+  center?: boolean;
+}> = ({ children, className, center = false }) => {
+  return (
+    <motion.span
+      initial="initial"
+      whileHover="hovered"
+      className={`relative inline-block overflow-hidden ${className || ''}`}
+      style={{
+        lineHeight: 1.1,
+        verticalAlign: 'middle'
+      }}
+    >
+      <span className="block">
+        {Array.from(children).map((l, i) => {
+          const delay = center
+            ? STAGGER * Math.abs(i - (children.length - 1) / 2)
+            : STAGGER * i;
+
+          return (
+            <motion.span
+              variants={{
+                initial: { y: 0 },
+                hovered: { y: "-100%" },
+              }}
+              transition={{ ease: "easeInOut", delay }}
+              className="inline-block"
+              key={i}
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </span>
+      <span className="absolute inset-0 block">
+        {Array.from(children).map((l, i) => {
+          const delay = center
+            ? STAGGER * Math.abs(i - (children.length - 1) / 2)
+            : STAGGER * i;
+
+          return (
+            <motion.span
+              variants={{
+                initial: { y: "100%" },
+                hovered: { y: 0 },
+              }}
+              transition={{ ease: "easeInOut", delay }}
+              className="inline-block"
+              key={i}
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </span>
+    </motion.span>
+  );
+};
+
 interface AccordionItem {
   title: string;
   content: React.ReactNode;
@@ -11,11 +74,14 @@ const AccordionSection: React.FC<{ item: AccordionItem }> = ({ item }) => {
 
   return (
     <div className="w-full border-b-[2px] border-white/20">
-      <button 
+      <motion.button 
+        whileHover="hovered"
         className="w-full flex justify-between items-center py-6 px-2 cursor-pointer bg-transparent border-none text-left"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="text-[20px] md:text-[28px] font-[800] text-white leading-[1.3]">{item.title}</span>
+        <span className="text-[20px] md:text-[28px] font-[800] text-white leading-[1.3] overflow-hidden">
+          <TextRoll>{item.title}</TextRoll>
+        </span>
         <motion.span 
           animate={{ rotate: isOpen ? 45 : 0 }}
           transition={{ duration: 0.2 }}
@@ -23,7 +89,7 @@ const AccordionSection: React.FC<{ item: AccordionItem }> = ({ item }) => {
         >
           +
         </motion.span>
-      </button>
+      </motion.button>
       <AnimatePresence>
         {isOpen && (
           <motion.div 
