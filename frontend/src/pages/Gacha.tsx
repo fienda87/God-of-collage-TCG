@@ -269,17 +269,21 @@ export const Gacha: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const isShopPurchase = location.state?.isShopPurchase || false;
     // If they can't open it and they're in the 'pack' phase, kick them out or disable interactions
-    if (!canOpen && phase === 'pack') {
+    if (!canOpen && phase === 'pack' && !isShopPurchase) {
       navigate('/');
     }
-  }, [canOpen, phase, navigate]);
+  }, [canOpen, phase, navigate, location.state]);
 
   const handlePackOpen = useCallback(() => {
+    const isShopPurchase = location.state?.isShopPurchase || false;
     const isPityActive = pityCount >= 20;
     const cards = generatePull(volume, isPityActive);
     setPulledCards(cards);
-    consumeGacha();
+    if (!isShopPurchase) {
+      consumeGacha();
+    }
     
     // Save to collection and calculate duplicates reward
     import('../store/collectionStore').then(({ useCollectionStore }) => {
@@ -524,7 +528,11 @@ export const Gacha: React.FC = () => {
               <Button variant="outline" onClick={() => navigate('/collection')}>
                 Koleksi Ku
               </Button>
-              {canOpen ? (
+              {location.state?.isShopPurchase ? (
+                <Button onClick={() => navigate('/shop')}>
+                  Kembali ke Toko
+                </Button>
+              ) : canOpen ? (
                 <Button onClick={handleReset}>
                   Buka Lagi
                 </Button>

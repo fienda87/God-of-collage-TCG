@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCollectionStore } from '../store/collectionStore';
-import { useEnergyStore } from '../store/energyStore';
 import { ALL_CARDS, type CardData, RARITY_COLORS } from '../data/cards';
 import './Shop.css';
 
@@ -28,8 +28,8 @@ const DUPLICATE_POINTS: Record<string, number> = {
 };
 
 export const Shop: React.FC = () => {
+  const navigate = useNavigate();
   const { cards, ipPoints, addIpPoints, deductIpPoints, extractCard, setCards } = useCollectionStore();
-  const { gachaCount, setGachaData } = useEnergyStore();
 
   const [activeTab, setActiveTab] = useState<'cards' | 'items' | 'recycle'>('cards');
   const [selectedRarityFilter, setSelectedRarityFilter] = useState<string>('All');
@@ -89,12 +89,16 @@ export const Shop: React.FC = () => {
     setConfirmPurchase({ type: 'card', target: card, price });
   };
 
-  const handleBuyRefreshOrb = () => {
+  const handleBuyBoosterPack = (volume: number) => {
     const price = 30;
     if (ipPoints < price) return;
     setConfirmPurchase({
       type: 'item',
-      target: { name: 'Refresh Orb', description: 'Memulihkan +1 tiket gacha secara instan.' },
+      target: { 
+        name: `Booster Pack Vol ${volume}`, 
+        description: `Buka langsung booster pack Vol ${volume} secara instan tanpa mengonsumsi energi tiket.`,
+        volume 
+      },
       price
     });
   };
@@ -119,8 +123,9 @@ export const Shop: React.FC = () => {
       };
       setCards([...cards, newCardInstance]);
     } else {
-      // Refresh Orb: +1 Gacha Ticket
-      setGachaData({ gachaCount: gachaCount + 1 });
+      // Booster Pack instant gacha
+      const volume = target.volume || 1;
+      navigate('/gacha', { state: { volume, isShopPurchase: true } });
     }
 
     setConfirmPurchase(null);
@@ -293,27 +298,57 @@ export const Shop: React.FC = () => {
             exit={{ opacity: 0, y: -10 }}
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
           >
+            {/* Booster Pack Vol 1 */}
             <motion.div
               variants={itemFade}
-              initial="hidden"
-              animate="show"
               className="bg-white/5 border border-white/10 rounded-[24px] p-6 flex flex-col justify-between items-center text-center relative group"
             >
               {/* Item Icon Graphic */}
-              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#7333f1] to-[#fe2f2f] flex items-center justify-center text-[44px] shadow-lg mb-6 group-hover:scale-105 transition-transform duration-300 relative">
-                <span className="animate-spin-slow">🔮</span>
-                <div className="absolute inset-[-10px] border border-dashed border-[#7333f1]/40 rounded-full animate-spin-reverse pointer-events-none" />
+              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#1b5bff] to-[#7333f1] flex items-center justify-center text-[44px] shadow-lg mb-6 group-hover:scale-105 transition-transform duration-300 relative">
+                <span>📦</span>
+                <div className="absolute inset-[-10px] border border-dashed border-[#1b5bff]/40 rounded-full animate-spin-slow pointer-events-none" />
               </div>
 
               <div>
-                <h3 className="text-[20px] font-[900] text-white leading-tight">Refresh Orb</h3>
-                <p className="text-[13px] text-white/60 mt-2 max-w-[200px] leading-relaxed">
-                  Menyegarkan energi gacha (+1 tiket) secara instan untuk membuka pack baru.
+                <h3 className="text-[20px] font-[900] text-white leading-tight">Booster Pack Vol 1</h3>
+                <p className="text-[13px] text-white/60 mt-2 max-w-[220px] leading-relaxed">
+                  Beli dan buka Booster Pack Volume 1 secara langsung tanpa mengonsumsi tiket energi harian.
                 </p>
               </div>
 
               <button
-                onClick={handleBuyRefreshOrb}
+                onClick={() => handleBuyBoosterPack(1)}
+                disabled={ipPoints < 30}
+                className={`w-full py-3 rounded-xl font-[900] text-[14px] border mt-8 transition-all shop-btn ${
+                  ipPoints >= 30
+                    ? 'bg-[#d7b73b] border-[#d7b73b] text-black hover:bg-[#c4a532]'
+                    : 'bg-white/5 border-white/10 text-white/30 cursor-not-allowed'
+                }`}
+              >
+                🛒 30 IP
+              </button>
+            </motion.div>
+
+            {/* Booster Pack Vol 2 */}
+            <motion.div
+              variants={itemFade}
+              className="bg-white/5 border border-white/10 rounded-[24px] p-6 flex flex-col justify-between items-center text-center relative group"
+            >
+              {/* Item Icon Graphic */}
+              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#fe2f2f] to-[#7333f1] flex items-center justify-center text-[44px] shadow-lg mb-6 group-hover:scale-105 transition-transform duration-300 relative">
+                <span>📦</span>
+                <div className="absolute inset-[-10px] border border-dashed border-[#fe2f2f]/40 rounded-full animate-spin-reverse pointer-events-none" />
+              </div>
+
+              <div>
+                <h3 className="text-[20px] font-[900] text-white leading-tight">Booster Pack Vol 2</h3>
+                <p className="text-[13px] text-white/60 mt-2 max-w-[220px] leading-relaxed">
+                  Beli dan buka Booster Pack Volume 2 secara langsung tanpa mengonsumsi tiket energi harian.
+                </p>
+              </div>
+
+              <button
+                onClick={() => handleBuyBoosterPack(2)}
                 disabled={ipPoints < 30}
                 className={`w-full py-3 rounded-xl font-[900] text-[14px] border mt-8 transition-all shop-btn ${
                   ipPoints >= 30
