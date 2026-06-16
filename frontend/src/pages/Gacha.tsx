@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { useEnergyStore } from '../store/energyStore';
 import { generatePull, type CardData, RARITY_COLORS } from '../data/cards';
 import { CardDetailModal } from '../components/modals/CardDetailModal';
+import EvilEye from '../components/ui/EvilEye';
 
 // ─── RarityAura — Particle burst + glow ───
 const RarityAura: React.FC<{ rarity: CardData['rarity'] }> = ({ rarity }) => {
@@ -362,7 +363,23 @@ export const Gacha: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[85vh] px-4 overflow-hidden relative">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full px-4 pt-20 pb-10 overflow-hidden relative bg-[#120F17]">
+      {/* Background EvilEye Shader */}
+      <div className="absolute inset-0 z-0 pointer-events-none w-full h-full">
+        <EvilEye
+          eyeColor="#FF6F37"
+          intensity={1.5}
+          pupilSize={0.6}
+          irisWidth={0.25}
+          glowIntensity={0.35}
+          scale={0.8}
+          noiseScale={1}
+          pupilFollow={1}
+          flameSpeed={1}
+          backgroundColor="#120F17"
+        />
+      </div>
+
       {/* ─── Pack Phase ─── */}
       <AnimatePresence>
         {phase === 'pack' && (
