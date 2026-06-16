@@ -82,13 +82,11 @@ export const useEnergyStore = create<GachaState>()(
         }
       },
       canOpenGacha: () => {
-        get().checkRefill();
         const state = get();
         if (state.isUnlimited) return true;
         return state.gachaCount > 0;
       },
       getSecondsUntilNextGacha: () => {
-        get().checkRefill();
         const state = get();
         if (state.isUnlimited || state.gachaCount >= MAX_GACHA || !state.lastGachaTime) return 0;
         

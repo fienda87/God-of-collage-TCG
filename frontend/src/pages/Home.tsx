@@ -30,6 +30,7 @@ export const Home: React.FC = () => {
       const remaining = getSecondsUntilNextGacha();
       setTimeLeft(remaining);
       if (remaining <= 0) {
+        useEnergyStore.getState().checkRefill();
         clearInterval(interval);
       }
     }, 1000);
