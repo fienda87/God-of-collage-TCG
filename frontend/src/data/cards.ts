@@ -166,11 +166,11 @@ export const RARITY_POOLS = {
 
 // Gacha slot probabilities (5 slots per pack)
 export const SLOT_CONFIG = [
-  { common: 75, rare: 15, superRare: 7, ultraRare: 2.7, legendary: 0.3 },   // Slot 1
-  { common: 75, rare: 15, superRare: 7, ultraRare: 2.7, legendary: 0.3 },   // Slot 2
-  { common: 75, rare: 15, superRare: 7, ultraRare: 2.7, legendary: 0.3 },   // Slot 3
-  { common: 75, rare: 15, superRare: 7, ultraRare: 2.7, legendary: 0.3 },   // Slot 4
-  { common: 75, rare: 15, superRare: 7, ultraRare: 2.7, legendary: 0.3 },   // Slot 5
+  { common: 70, rare: 20, superRare: 10, ultraRare: 0, legendary: 0 },   // Slot 1 (Max SR)
+  { common: 70, rare: 20, superRare: 10, ultraRare: 0, legendary: 0 },   // Slot 2 (Max SR)
+  { common: 70, rare: 20, superRare: 10, ultraRare: 0, legendary: 0 },   // Slot 3 (Max SR)
+  { common: 70, rare: 20, superRare: 10, ultraRare: 0, legendary: 0 },   // Slot 4 (Max SR)
+  { common: 70, rare: 18, superRare: 7, ultraRare: 4.5, legendary: 0.5 }, // Slot 5 (Can yield UR/Legendary)
 ];
 
 export const PITY_CONFIG = { common: 0, rare: 0, superRare: 55, ultraRare: 35, legendary: 10 };

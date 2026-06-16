@@ -309,12 +309,7 @@ export const Gacha: React.FC = () => {
       setEarnedPoints(calculatedPoints);
     });
 
-    const gotHighTier = cards.some(card => 
-      card.rarity === 'Super Rare' || 
-      card.rarity === 'Ultra Rare' || 
-      card.rarity === 'Exclusive Legendary'
-    );
-    if (gotHighTier) {
+    if (isPityActive) {
       resetPity(volume);
     } else {
       incrementPity(volume);
