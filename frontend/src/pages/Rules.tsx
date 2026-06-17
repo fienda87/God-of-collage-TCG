@@ -185,7 +185,7 @@ const faqItems: AccordionItem[] = [
         <p className="mb-2">Sistem Pity (Jaminan) membantu kamu mendapatkan kartu langka jika kurang beruntung:</p>
         <ul className="list-none p-0 m-0">
           <li className="mb-2">• Setiap kali kamu membuka booster pack tanpa mendapatkan kartu <strong>Super Rare (SR), Ultra Rare (UR), atau Exclusive Legendary</strong>, pity meter kamu akan bertambah <strong>+1</strong>.</li>
-          <li className="mb-2">• Jika pity meter mencapai <strong>20/20</strong>, maka di pembukaan pack berikutnya (gacha ke-21), Slot ke-5 kartu dijamin 100% adalah kartu tingkat tinggi dengan peluang: <strong>SR (55%), UR (35%), atau Exclusive Legendary (10%)</strong>.</li>
+          <li className="mb-2">• Jika pity meter mencapai <strong>20/20</strong>, maka di pembukaan pack berikutnya (gacha ke-21), Slot ke-3, ke-4, dan ke-5 kartu dijamin 100% adalah kartu tingkat tinggi dengan peluang masing-masing: <strong>SR (55%), UR (35%), atau Exclusive Legendary (10%)</strong>.</li>
           <li>• Jika kamu mendapatkan kartu SR, UR, atau Exclusive Legendary secara alami di tengah jalan sebelum mencapai 20 pulls, pity meter akan <strong>langsung kembali ke 0</strong>.</li>
         </ul>
       </div>
@@ -203,7 +203,7 @@ const faqItems: AccordionItem[] = [
           <li className="mb-2">• 🟡 <strong>Ultra Rare (UR) Duplicate:</strong> +50 IP Points</li>
           <li>• 🔴 <strong>Exclusive Legendary Duplicate:</strong> +200 IP Points</li>
         </ul>
-        <p>Gunakan IP Points di halaman <strong>Shop</strong> untuk membeli kartu langka secara langsung, atau membeli <strong>Refresh Orb</strong> (+1 Energi Gacha).</p>
+        <p>Gunakan IP Points di halaman <strong>Shop</strong> untuk membeli kartu langka secara langsung, atau membeli <strong>Booster Pack Vol 1 & Vol 2</strong>.</p>
       </div>
     ),
   },

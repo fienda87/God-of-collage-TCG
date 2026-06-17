@@ -199,7 +199,7 @@ export function pickRandomCardFromPool(rarity: CardData['rarity'], volume: numbe
 
 export function generatePull(volume: number = 1, isPityActive: boolean = false): CardData[] {
   return SLOT_CONFIG.map((config, index) => {
-    const finalConfig = (isPityActive && index === 4) ? PITY_CONFIG : config;
+    const finalConfig = (isPityActive && (index === 2 || index === 3 || index === 4)) ? PITY_CONFIG : config;
     const rarity = pickRarity(finalConfig);
     const card = pickRandomCardFromPool(rarity, volume);
     return { ...card, id: `${Date.now()}-${Math.random()}` };
