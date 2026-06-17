@@ -140,11 +140,73 @@ const ITEM_CARDS: CardData[] = [
 ];
 
 // ─── COMBINED ───
+
+// ─── VOLUME 3 (New Journey Skripsi) ───
+const VOLUME_3_CARDS: CardData[] = [
+  // Agip — Santuy
+  { id: 'agip-young', name: 'Young Agip', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 40, skill_name: 'Maba Santuy', skill_effect: 'DEF +10.', weakness: 'Bucin', lore: 'Baru masuk kuliah, belum tau kerasnya tugas.', image_url: '/images/vol3/karakter/agip/maba/young agip.png', volume: 3 },
+  { id: 'agip-satoru', name: 'Agip Satoru', element: 'Santuy', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 80, skill_name: 'Limitless Lazy', skill_effect: 'ATK +20, DEF +10.', weakness: 'Bucin', lore: 'Sepanjang langit dan bumi, dialah yang paling mager.', image_url: '/images/vol3/karakter/agip/semsAkhir/agip satoru.png', volume: 3 },
+
+  // Aqil — Bucin
+  { id: 'aqil-silent', name: 'Silent Qil', element: 'Bucin', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 85, skill_name: 'Silent Hype', skill_effect: 'DEF +20. Hype lawan 1 giliran.', weakness: 'Ambis', lore: 'Bicara seperlunya, diamnya mematikan.', image_url: '/images/vol3/karakter/aqil/maba/silent qil.png', volume: 3 },
+
+  // Bagas — Ambis
+  { id: 'bagas-assassins', name: 'Assassins Bagas', element: 'Ambis', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 80, skill_name: 'Stealth Coding', skill_effect: 'Ghosting 1 giliran. ATK +15.', weakness: 'Santuy', lore: 'Mengendap-endap di lab komputer demi nilai A.', image_url: '/images/vol3/karakter/bagas/semsAkhir/Assasins bagas.png', volume: 3 },
+  { id: 'bagas-hitman', name: 'Bagas Hitman', element: 'Ambis', rarity: 'Exclusive Legendary', rarityLabel: 'IPK 4 EX', hp: 125, skill_name: 'Contract Completed', skill_effect: 'ATK +45. Ghosting lawan 2 giliran. DEF +10.', weakness: 'Santuy', lore: 'Target terkunci: Skripsi selesai dalam semalam.', image_url: '/images/vol3/karakter/bagas/semsAkhir/bagas hitman.png', volume: 3 },
+
+  // Baydar — Santuy
+  { id: 'baydar-poyoyo', name: 'Baydar Poyoyo', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 50, skill_name: 'Joget Poyo', skill_effect: 'Confusion lawan 1 giliran.', weakness: 'Bucin', lore: 'Joget andalan warkop saat bahagia.', image_url: '/images/vol3/karakter/Baydar/kating/baydar poyoyo.png', volume: 3 },
+  { id: 'baydar-pengabdi', name: 'Pengabdi Baydar', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 55, skill_name: 'Kopi Hitam', skill_effect: 'DEF +15. Hapus Burnout.', weakness: 'Bucin', lore: 'Pengikut setia dewa warkop.', image_url: '/images/vol3/karakter/Baydar/kating/pengabdi baydar.png', volume: 3 },
+  { id: 'baydar-kalkulus', name: 'Baydar Kalkulus', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 45, skill_name: 'Turunan Pertama', skill_effect: 'ATK +15, DEF -5.', weakness: 'Bucin', lore: 'Belajar kalkulus demi bisa ngitung kembalian kopi.', image_url: '/images/vol3/karakter/Baydar/maba/baydar kalkulus.png', volume: 3 },
+
+  // Brikal — Ambis (Karakter Baru)
+  { id: 'brikal-store', name: 'Brikal Store', element: 'Ambis', rarity: 'Common', rarityLabel: 'IPK 1', hp: 50, skill_name: 'Open Order', skill_effect: 'Pulihkan 15 HP.', weakness: 'Santuy', lore: 'Jualan apa saja asal jadi cuan.', image_url: '/images/vol3/karakter/brikal/maba/brikal store.png', volume: 3 },
+  { id: 'brikal-jawa', name: 'Jawa', element: 'Ambis', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 80, skill_name: 'Medok Power', skill_effect: 'DEF +25.', weakness: 'Santuy', lore: 'Kejawen sejati, sopan santun nomor satu.', image_url: '/images/vol3/karakter/brikal/kating/jawa.png', volume: 3 },
+  { id: 'brikal-ilahi', name: 'Brikal Ilahi', element: 'Ambis', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 85, skill_name: 'Divine Merchant', skill_effect: 'ATK +20. Pulihkan 20 HP.', weakness: 'Santuy', lore: 'Berdagang dengan restu langit.', image_url: '/images/vol3/karakter/brikal/semsAkhir/brikal ilahi.png', volume: 3 },
+
+  // Irswanda — Ambis
+  { id: 'irswanda-bgn', name: 'Irswanda BGN', element: 'Ambis', rarity: 'Common', rarityLabel: 'IPK 1', hp: 50, skill_name: 'Beginner Luck', skill_effect: 'ATK +10, 50% critical.', weakness: 'Santuy', lore: 'Awal mula petualangan akademik Irswanda.', image_url: '/images/vol3/karakter/irswanda/maba/irswanda bgn.png', volume: 3 },
+  { id: 'irswanda-oo', name: 'Irswanda O-O', element: 'Ambis', rarity: 'Common', rarityLabel: 'IPK 1', hp: 50, skill_name: 'Spectacles View', skill_effect: 'DEF +15.', weakness: 'Santuy', lore: 'Kacamata bulatnya melihat masa depan nilai A.', image_url: '/images/vol3/karakter/irswanda/maba/irswanda o-o.png', volume: 3 },
+  { id: 'irswanda-cyborg', name: 'Akademik Cyborg', element: 'Ambis', rarity: 'Exclusive Legendary', rarityLabel: 'IPK 4 EX', hp: 130, skill_name: 'Auto Skripsi', skill_effect: 'ATK +35, DEF +25. Immune Burnout.', weakness: 'Santuy', lore: 'Manusia setengah robot yang diprogram untuk belajar 24 jam.', image_url: '/images/vol3/karakter/irswanda/semsAkhir/cyborg akademik.png', volume: 3 },
+
+  // Koten — Santuy
+  { id: 'koten-racing', name: 'Koten Racing', element: 'Santuy', rarity: 'Ultra Rare', rarityLabel: 'IPK 4', hp: 105, skill_name: 'Speedrun Kuliah', skill_effect: 'ATK +30. Hype diri sendiri 2 giliran.', weakness: 'Bucin', lore: 'Lulus cepat tanpa hambatan tikungan tajam.', image_url: '/images/vol3/karakter/koten/kating/koten racing.png', volume: 3 },
+  { id: 'koten-orkestra', name: 'Koten Orkestra', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 45, skill_name: 'Simfoni Mager', skill_effect: 'Confusion lawan 1 giliran.', weakness: 'Bucin', lore: 'Memimpin paduan suara kemageran.', image_url: '/images/vol3/karakter/koten/maba/koten orkestra.png', volume: 3 },
+  { id: 'koten-sleepy', name: 'Sleepy Koten', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 40, skill_name: 'Tidur Berdiri', skill_effect: 'DEF +10. Pulihkan 10 HP.', weakness: 'Bucin', lore: 'Tidur di sela-sela dosen menerangkan.', image_url: '/images/vol3/karakter/koten/maba/sleepy koten.png', volume: 3 },
+
+  // Mikel — Santuy
+  { id: 'mikel-sus', name: 'Mikel Sus', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 45, skill_name: 'Suspicious Look', skill_effect: 'DEF +15. Mager lawan 1 giliran.', weakness: 'Bucin', lore: 'Mencurigakan, sepertinya titip absen.', image_url: '/images/vol3/karakter/mikel/maba/mikel sus.png', volume: 3 },
+  { id: 'mikel-tomsamchong', name: 'Mikel Tomsamchong', element: 'Santuy', rarity: 'Exclusive Legendary', rarityLabel: 'IPK 4 EX', hp: 120, skill_name: 'Tomsamchong Kick', skill_effect: 'ATK +40. Burnout lawan 2 giliran.', weakness: 'Bucin', lore: 'Penguasa warkop legendaris dengan tendangan maut.', image_url: '/images/vol3/karakter/mikel/semsAkhir/mikel tomsamchong.png', volume: 3 },
+
+  // Pebasket — Bucin
+  { id: 'pebasket-lgbt', name: 'Pebasket LGBT', element: 'Bucin', rarity: 'Common', rarityLabel: 'IPK 1', hp: 40, skill_name: 'Rainbow Dunk', skill_effect: 'ATK +15, 30% miss.', weakness: 'Ambis', lore: 'Pebasket warna-warni yang jago nge-dunk.', image_url: '/images/vol3/karakter/pebasket/maba/pebasket lgbt.png', volume: 3 },
+  { id: 'pebasket-assasintio', name: 'Assasin Tio', element: 'Bucin', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 80, skill_name: 'Hidden Layup', skill_effect: 'ATK +20. DEF +10.', weakness: 'Ambis', lore: 'Layup tersembunyi dari balik bayang-bayang ring.', image_url: '/images/vol3/karakter/pebasket/semsAkhir/assasin tio.png', volume: 3 },
+  { id: 'pebasket-pisangijo', name: 'Pisang Ijo', element: 'Bucin', rarity: 'Super Rare', rarityLabel: 'IPK 3.5', hp: 95, skill_name: 'Segar Manis', skill_effect: 'Pulihkan 30 HP. Hapus Burnout.', weakness: 'Ambis', lore: 'Takjil legendaris penenang jiwa pebasket.', image_url: '/images/vol3/karakter/pebasket/semsAkhir/pisang ijo.png', volume: 3 },
+  { id: 'pebasket-silentmajority', name: 'Silent Majority', element: 'Bucin', rarity: 'Super Rare', rarityLabel: 'IPK 3.5', hp: 90, skill_name: 'Quiet Power', skill_effect: 'DEF +20. ATK +20.', weakness: 'Ambis', lore: 'Mereka yang diam tapi mematikan saat bertanding.', image_url: '/images/vol3/karakter/pebasket/semsAkhir/silent majority.png', volume: 3 },
+
+  // Rapli — Santuy (Karakter Baru)
+  { id: 'rapli-turu', name: 'Rapli Turu', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 40, skill_name: 'Turu Eternal', skill_effect: 'DEF +20. Pulihkan 10 HP.', weakness: 'Bucin', lore: 'Rebahan adalah jalan hidupku.', image_url: '/images/vol3/karakter/rapli/kating/rapli turu.png', volume: 3 },
+  { id: 'rapli-opm', name: 'Rapli OPM', element: 'Santuy', rarity: 'Common', rarityLabel: 'IPK 1', hp: 50, skill_name: 'One Punch Turu', skill_effect: 'ATK +20. Mager 1 giliran.', weakness: 'Bucin', lore: 'Pukulan kuat tapi langsung ngantuk.', image_url: '/images/vol3/karakter/rapli/maba/rapli opm.png', volume: 3 },
+  { id: 'rapli-mikir', name: 'Mikir Kids', element: 'Santuy', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 80, skill_name: 'Brain Storm', skill_effect: 'ATK +25.', weakness: 'Bucin', lore: 'Berpikir keras mencari alasan bolos.', image_url: '/images/vol3/karakter/rapli/semsAkhir/mikir kids.png', volume: 3 },
+
+  // Zaka — Bucin
+  { id: 'zaka-serlok', name: 'Zaka Serlok', element: 'Bucin', rarity: 'Common', rarityLabel: 'IPK 1', hp: 55, skill_name: 'Location Locked', skill_effect: 'DEF +15. Hype 1 giliran.', weakness: 'Ambis', lore: 'Langsung share location begitu diajak nongkrong.', image_url: '/images/vol3/karakter/zaka/kating/zaka serlok.png', volume: 3 },
+  { id: 'zaka-meteorbegin', name: 'Meteor The Beginning', element: 'Bucin', rarity: 'Common', rarityLabel: 'IPK 1', hp: 50, skill_name: 'Stardust Fall', skill_effect: 'ATK +15.', weakness: 'Ambis', lore: 'Awal mula meteor yang akan menghancurkan hati.', image_url: '/images/vol3/karakter/zaka/maba/meteor the beggining.png', volume: 3 },
+  { id: 'zaka-nippon', name: 'Nippon Des Ka', element: 'Bucin', rarity: 'Ultra Rare', rarityLabel: 'IPK 4', hp: 110, skill_name: 'Anime Attack', skill_effect: 'ATK +35. Confusion lawan 2 giliran.', weakness: 'Ambis', lore: 'Wibu sejati yang bertarung dengan kekuatan anime.', image_url: '/images/vol3/karakter/zaka/semsAkhir/nippon des ka.png', volume: 3 },
+
+  // Zaki — Ambis
+  { id: 'zaki-whatsapp', name: 'Zaki Whatsapp', element: 'Ambis', rarity: 'Super Rare', rarityLabel: 'IPK 3.5', hp: 90, skill_name: 'Spam Chat', skill_effect: 'ATK +25. Mager lawan 1 giliran.', weakness: 'Santuy', lore: 'Menghubungi ketua kelas 24 jam nonstop.', image_url: '/images/vol3/karakter/zaki/kating/zaki whatsapp.png', volume: 3 },
+  { id: 'zaki-pepsodent', name: 'Zaki Pepsodent', element: 'Ambis', rarity: 'Super Rare', rarityLabel: 'IPK 3.5', hp: 95, skill_name: 'Senyum Cemerlang', skill_effect: 'DEF +25. Confusion lawan 1 giliran.', weakness: 'Santuy', lore: 'Gigi putih bersih membuat lawan silau.', image_url: '/images/vol3/karakter/zaki/kating/zaki pepsodent.png', volume: 3 },
+  { id: 'zaki-lilz', name: 'Lil Z', element: 'Ambis', rarity: 'Rare', rarityLabel: 'IPK 2.5', hp: 85, skill_name: 'Lil Rhymes', skill_effect: 'ATK +20.', weakness: 'Santuy', lore: 'Rapper cilik kebanggaan angkatan.', image_url: '/images/vol3/karakter/zaki/semsAkhir/lil z.png', volume: 3 },
+];
+
+// ─── COMBINED ───
 export const ALL_CARDS: CardData[] = [
   ...AMBIS_CARDS,
   ...SANTUY_CARDS,
   ...BUCIN_CARDS,
   ...IRSWANDA_CARDS,
+  ...VOLUME_3_CARDS,
   ...EVENT_CARDS,
   ...ITEM_CARDS,
 ];

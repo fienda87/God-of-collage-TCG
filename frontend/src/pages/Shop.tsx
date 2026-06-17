@@ -359,6 +359,37 @@ export const Shop: React.FC = () => {
                 🛒 100 IP
               </button>
             </motion.div>
+
+            {/* Booster Pack Vol 3 */}
+            <motion.div
+              variants={itemFade}
+              className="bg-white/5 border border-white/10 rounded-[24px] p-6 flex flex-col justify-between items-center text-center relative group"
+            >
+              {/* Item Icon Graphic */}
+              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#d7b73b] to-[#7333f1] flex items-center justify-center text-[44px] shadow-lg mb-6 group-hover:scale-105 transition-transform duration-300 relative">
+                <span>📦</span>
+                <div className="absolute inset-[-10px] border border-dashed border-[#d7b73b]/40 rounded-full animate-spin-slow pointer-events-none" />
+              </div>
+
+              <div>
+                <h3 className="text-[20px] font-[900] text-white leading-tight">Booster Pack Vol 3</h3>
+                <p className="text-[13px] text-white/60 mt-2 max-w-[220px] leading-relaxed">
+                  Beli dan buka Booster Pack Volume 3 secara langsung tanpa mengonsumsi tiket energi harian.
+                </p>
+              </div>
+
+              <button
+                onClick={() => handleBuyBoosterPack(3)}
+                disabled={ipPoints < 100}
+                className={`w-full py-3 rounded-xl font-[900] text-[14px] border mt-8 transition-all shop-btn ${
+                  ipPoints >= 100
+                    ? 'bg-[#d7b73b] border-[#d7b73b] text-black hover:bg-[#c4a532]'
+                    : 'bg-white/5 border-white/10 text-white/30 cursor-not-allowed'
+                }`}
+              >
+                🛒 100 IP
+              </button>
+            </motion.div>
           </motion.div>
         )}
 

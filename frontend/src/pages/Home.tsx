@@ -8,19 +8,21 @@ import { ALL_CARDS } from '../data/cards';
 import ScrollVelocity from '../components/ui/ScrollVelocity';
 import ShinyText from '../components/ui/ShinyText';
 import { Announcement, AnnouncementTag, AnnouncementTitle } from '../components/ui/announcement';
-import { ArrowUpRightIcon, Bell } from 'lucide-react';
+import { ArrowUpRightIcon, Bell, Info } from 'lucide-react';
 import { PatchNoteModal } from '../components/modals/PatchNoteModal';
+import { BoosterInfoModal } from '../components/modals/BoosterInfoModal';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const { canOpenGacha, getSecondsUntilNextGacha, gachaCount, pityCountVol1, pityCountVol2 } = useEnergyStore();
+  const { canOpenGacha, getSecondsUntilNextGacha, gachaCount, pityCountVol1, pityCountVol2, pityCountVol3 } = useEnergyStore();
   
   const [timeLeft, setTimeLeft] = useState(getSecondsUntilNextGacha());
   const canOpen = canOpenGacha();
-  const [selectedVolume, setSelectedVolume] = useState<number>(1);
+  const [selectedVolume, setSelectedVolume] = useState<number>(3);
   const [isPatchNoteOpen, setIsPatchNoteOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
-  const currentPity = selectedVolume === 2 ? pityCountVol2 : pityCountVol1;
+  const currentPity = selectedVolume === 3 ? pityCountVol3 : selectedVolume === 2 ? pityCountVol2 : pityCountVol1;
 
   useEffect(() => {
     // If we have max tokens, we don't need a timer
@@ -45,11 +47,37 @@ export const Home: React.FC = () => {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  // Prepare cards for the gallery
+  // Prepare cards for the gallery (limit to 12 items to prevent WebGL initialization lag)
   const galleryItems = useMemo(() => {
-    return ALL_CARDS.map(card => ({
+    // Select 12 representative cards across volumes, prioritizing premium rarities
+    const selected: typeof ALL_CARDS = [];
+    const seenImages = new Set<string>();
+
+    const premiumCards = ALL_CARDS.filter(
+      (c) => c.rarity === 'Exclusive Legendary' || c.rarity === 'Ultra Rare' || c.rarity === 'Super Rare'
+    );
+
+    for (const card of premiumCards) {
+      if (selected.length >= 12) break;
+      if (!seenImages.has(card.image_url)) {
+        seenImages.add(card.image_url);
+        selected.push(card);
+      }
+    }
+
+    if (selected.length < 12) {
+      for (const card of ALL_CARDS) {
+        if (selected.length >= 12) break;
+        if (!seenImages.has(card.image_url)) {
+          seenImages.add(card.image_url);
+          selected.push(card);
+        }
+      }
+    }
+
+    return selected.map((card) => ({
       image: card.image_url,
-      text: "???"
+      text: '???'
     }));
   }, []);
 
@@ -109,7 +137,7 @@ export const Home: React.FC = () => {
         <div className="relative flex items-center justify-center w-full mb-8">
           {/* Left Arrow */}
           <button 
-            onClick={() => setSelectedVolume(prev => prev === 1 ? 2 : 1)}
+            onClick={() => setSelectedVolume(prev => prev === 1 ? 3 : prev - 1)}
             className="absolute left-0 z-30 p-2 bg-black/50 hover:bg-black/80 rounded-full text-[#d7b73b] border border-[#d7b73b] transition-all"
             aria-label="Previous Box"
           >
@@ -135,14 +163,14 @@ export const Home: React.FC = () => {
             
             {/* Box Image */}
             <img 
-              src={selectedVolume === 1 ? "/images/booster box.webp" : "/images/vol2/booster box vol 2.webp"} 
+              src={selectedVolume === 1 ? "/images/booster box.webp" : selectedVolume === 2 ? "/images/vol2/booster box vol 2.webp" : "/images/vol3/booster box vol 3.png"} 
               alt={`Booster Box Vol ${selectedVolume}`} 
               className="w-full h-full object-contain relative z-10 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
             />
             
             {/* Volume Label */}
             <div className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 z-30 bg-black/80 border border-[#d7b73b] px-4 py-1 rounded-full text-[#d7b73b] font-bold whitespace-nowrap text-sm sm:text-base">
-              VOL {selectedVolume}: {selectedVolume === 1 ? 'MABA' : 'SEMESTER AKHIR'}
+              VOL {selectedVolume}: {selectedVolume === 1 ? 'MABA' : selectedVolume === 2 ? 'SEMESTER AKHIR' : 'NEW JOURNEY SKRIPSI'}
             </div>
 
             {/* Status Overlay */}
@@ -164,12 +192,25 @@ export const Home: React.FC = () => {
 
           {/* Right Arrow */}
           <button 
-            onClick={() => setSelectedVolume(prev => prev === 1 ? 2 : 1)}
+            onClick={() => setSelectedVolume(prev => prev === 3 ? 1 : prev + 1)}
             className="absolute right-0 z-30 p-2 bg-black/50 hover:bg-black/80 rounded-full text-[#d7b73b] border border-[#d7b73b] transition-all"
             aria-label="Next Box"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
           </button>
+        </div>
+
+        {/* Info Icon */}
+        <div className="flex justify-center mb-1 z-20">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsInfoModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 hover:border-[#d7b73b]/40 text-white/50 hover:text-[#d7b73b] rounded-full transition-all text-xs font-bold cursor-pointer"
+          >
+            <Info size={13} />
+            <span>Info & Gacha Rate</span>
+          </motion.button>
         </div>
 
         {/* Pity Progress Bar */}
@@ -283,6 +324,7 @@ export const Home: React.FC = () => {
       </motion.div>
 
       <PatchNoteModal isOpen={isPatchNoteOpen} onClose={() => setIsPatchNoteOpen(false)} />
+      <BoosterInfoModal isOpen={isInfoModalOpen} onClose={() => setIsInfoModalOpen(false)} volume={selectedVolume} />
     </div>
   );
 };

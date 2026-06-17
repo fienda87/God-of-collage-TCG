@@ -72,6 +72,7 @@ export const Collection: React.FC = () => {
             { label: "Semua", description: "Semua kartu", icon: Layers, onClick: () => setFilterVolume('All'), isActive: filterVolume === 'All' },
             { label: "Vol 1", description: "Maba", icon: Book, onClick: () => setFilterVolume(1), isActive: filterVolume === 1 },
             { label: "Vol 2", description: "Semester Akhir", icon: BookOpen, onClick: () => setFilterVolume(2), isActive: filterVolume === 2 },
+            { label: "Vol 3", description: "New Journey Skripsi", icon: BookOpen, onClick: () => setFilterVolume(3), isActive: filterVolume === 3 },
           ]
         }
       ]

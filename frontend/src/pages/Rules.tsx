@@ -200,7 +200,7 @@ const faqItems: AccordionItem[] = [
           <li className="mb-2">• 🟡 <strong>Ultra Rare (UR) Duplicate:</strong> +50 IP Points</li>
           <li>• 🔴 <strong>Exclusive Legendary Duplicate:</strong> +200 IP Points</li>
         </ul>
-        <p>Gunakan IP Points di halaman <strong>Shop</strong> untuk membeli kartu langka secara langsung, atau membeli <strong>Booster Pack Vol 1 & Vol 2</strong>.</p>
+        <p>Gunakan IP Points di halaman <strong>Shop</strong> untuk membeli kartu langka secara langsung, atau membeli <strong>Booster Pack Vol 1, Vol 2, & Vol 3</strong>.</p>
       </div>
     ),
   },

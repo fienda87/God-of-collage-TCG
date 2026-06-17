@@ -8,6 +8,7 @@ interface GachaState {
   pityCount: number; // Retained for compatibility
   pityCountVol1: number;
   pityCountVol2: number;
+  pityCountVol3: number;
   setGachaData: (data: Partial<GachaState>) => void;
   consumeGacha: () => void;
   canOpenGacha: () => boolean;
@@ -29,16 +30,21 @@ export const useEnergyStore = create<GachaState>()(
       pityCount: 0,
       pityCountVol1: 0,
       pityCountVol2: 0,
+      pityCountVol3: 0,
       setGachaData: (data) => set((state) => ({ ...state, ...data })),
       incrementPity: (volume = 1) => set((state) => {
-        if (volume === 2) {
+        if (volume === 3) {
+          return { pityCountVol3: state.pityCountVol3 + 1 };
+        } else if (volume === 2) {
           return { pityCountVol2: state.pityCountVol2 + 1 };
         } else {
           return { pityCountVol1: state.pityCountVol1 + 1 };
         }
       }),
       resetPity: (volume = 1) => {
-        if (volume === 2) {
+        if (volume === 3) {
+          set({ pityCountVol3: 0 });
+        } else if (volume === 2) {
           set({ pityCountVol2: 0 });
         } else {
           set({ pityCountVol1: 0 });

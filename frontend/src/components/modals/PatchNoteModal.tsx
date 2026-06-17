@@ -51,9 +51,9 @@ export const PatchNoteModal: React.FC<PatchNoteModalProps> = ({ isOpen, onClose 
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">📢</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-[#d7b73b] tracking-tight">PATCH NOTES UPDATE v2.0</h2>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-[#d7b73b] tracking-tight">PATCH NOTES UPDATE v3.0</h2>
               </div>
-              <p className="text-sm md:text-base font-semibold text-white/80 uppercase tracking-widest">Era Sikut-Sikutan Tongkrongan</p>
+              <p className="text-sm md:text-base font-semibold text-white/80 uppercase tracking-widest">New Journey Skripsi</p>
             </div>
             <button
               onClick={onClose}
@@ -69,12 +69,64 @@ export const PatchNoteModal: React.FC<PatchNoteModalProps> = ({ isOpen, onClose 
             {/* Intro */}
             <div className="bg-white/5 border border-white/10 p-5 rounded-xl text-[15px] leading-relaxed">
               <p>
-                <strong>Selamat datang di Kawan TCG Vol 2!</strong> Update besar-besaran kali ini berfokus pada perombakan mekanik permainan yang lebih agresif, penuh risiko (<em>high risk, high reward</em>), serta penyesuaian sistem agar jalannya pertandingan terasa lebih taktis dan kompetitif.
-              </p>
-              <p className="mt-3 text-white/60">
-                Berikut adalah detail lengkap perubahan, mekanik baru, dan daftar kartu yang hadir di Vol 2:
+                <strong>Selamat datang di Kawan TCG Vol 3: New Journey Skripsi!</strong> Update kali ini bertemakan akhir perjuangan mahasiswa di bangku kuliah—Skripsi. Kami menghadirkan total 32 kartu baru, 2 karakter baru dengan mekanik elemen tersendiri, optimalisasi performa rendering, serta animasi interaktif baru saat membuka pack.
               </p>
             </div>
+
+            {/* Section 0: Volume 3 Highlights */}
+            <section className="space-y-4">
+              <h3 className="text-xl md:text-2xl font-bold text-[#FF6F37] flex items-center gap-3 border-b border-white/10 pb-3">
+                <span className="bg-[#FF6F37]/20 p-2 rounded-lg">🔥</span> [HOT] VOLUME 3: NEW JOURNEY SKRIPSI
+              </h3>
+              
+              <div className="pl-2 space-y-6">
+                <div>
+                  <h4 className="text-lg font-bold text-white flex items-center gap-2 mb-2">
+                    <span>🎓</span> Perilisan 32 Kartu Baru & 2 Karakter Baru
+                  </h4>
+                  <p className="text-white/70 mb-3 text-[15px] leading-relaxed">
+                    Petualangan skripsi dan sidang kelulusan dimulai dengan hadirnya 32 kartu baru! Kami juga merilis 2 karakter baru yang siap bertarung di tongkrongan:
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
+                      <span className="font-extrabold text-[#fe2f2f] text-lg block mb-1">📚 Brikal (Elemen Ambis)</span>
+                      <span className="text-sm text-white/60">Mahasiswa ambisius yang berjuang keras menaklukkan dosen pembimbing dan urusan administrasi skripsi demi predikat kelulusan terbaik.</span>
+                    </div>
+                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
+                      <span className="font-extrabold text-[#d7b73b] text-lg block mb-1">😎 Rapli (Elemen Santuy)</span>
+                      <span className="text-sm text-white/60">Mahasiswa yang sangat santai, menyeimbangkan tekanan tugas akhir dengan ketenangan pikiran yang luar biasa.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-bold text-white flex items-center gap-2 mb-2">
+                    <span>📦</span> Booster Box & Booster Pack Vol 3 Baru
+                  </h4>
+                  <p className="text-white/70 text-[15px] leading-relaxed">
+                    Visual booster baru berwarna oranye membara kini tersedia di Home Slider dan Gacha. Anda juga bisa membeli <strong>Booster Pack Vol 3</strong> secara langsung di Toko seharga <strong>100 IP Points</strong> untuk melakukan gacha instan tanpa memotong energi harian.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-bold text-white flex items-center gap-2 mb-2">
+                    <span>✨</span> Efek 3D Spring Hover Tilt pada Kartu
+                  </h4>
+                  <p className="text-white/70 text-[15px] leading-relaxed">
+                    Kartu hasil gacha yang telah dibuka kini merespons gerakan kursor mouse Anda! Dekatkan mouse ke kartu untuk melihat efek kemiringan 3D spring tilt dinamis dan zoom halus yang interaktif.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-bold text-white flex items-center gap-2 mb-2">
+                    <span>⚡</span> Peningkatan Performa & Penanganan GPU Leak
+                  </h4>
+                  <p className="text-white/70 text-[15px] leading-relaxed">
+                    Perpindahan antar halaman kembali ke Home sekarang jauh lebih mulus berkat optimalisasi galeri WebGL (dibatasi 12 kartu premium terbaik), penundaan inisialisasi selama 400ms untuk memberi ruang bagi transisi halaman, dan pembersihan memori GPU instan pada unmount.
+                  </p>
+                </div>
+              </div>
+            </section>
 
             {/* Section 1: Core System */}
             <section className="space-y-4">

@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import { Button } from '../components/ui/Button';
 import { useEnergyStore } from '../store/energyStore';
 import { generatePull, type CardData, RARITY_COLORS } from '../data/cards';
@@ -76,6 +76,37 @@ const FlipCard: React.FC<{
 }> = ({ card, index, onFlipped, onCardClick, isMobile }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [showAura, setShowAura] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const rotateX = useSpring(0, { damping: 30, stiffness: 100, mass: 2 });
+  const rotateY = useSpring(0, { damping: 30, stiffness: 100, mass: 2 });
+  const scale = useSpring(1, { damping: 30, stiffness: 100, mass: 2 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isFlipped || isMobile || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left - rect.width / 2;
+    const offsetY = e.clientY - rect.top - rect.height / 2;
+
+    const rotateAmplitude = 18;
+    const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+    const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+
+    rotateX.set(rotationX);
+    rotateY.set(rotationY);
+  };
+
+  const handleMouseEnter = () => {
+    if (!isFlipped || isMobile) return;
+    scale.set(1.08);
+  };
+
+  const handleMouseLeave = () => {
+    if (!isFlipped || isMobile) return;
+    scale.set(1);
+    rotateX.set(0);
+    rotateY.set(0);
+  };
 
   const handleInteraction = () => {
     if (!isFlipped) {
@@ -98,10 +129,22 @@ const FlipCard: React.FC<{
   return (
     <div className="relative flex items-center justify-center">
       {showAura && <RarityAura rarity={card.rarity} />}
-      <div 
-        style={{ width: w, height: h, perspective: 1200 }} 
+      <motion.div 
+        ref={ref}
+        style={{ 
+          width: w, 
+          height: h, 
+          perspective: 1200,
+          rotateX: isFlipped ? rotateX : 0,
+          rotateY: isFlipped ? rotateY : 0,
+          scale: isFlipped ? scale : 1,
+          transformStyle: 'preserve-3d'
+        }} 
         className="cursor-pointer relative z-10" 
         onClick={handleInteraction}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <motion.div
           className="w-full h-full relative"
@@ -159,7 +202,7 @@ const FlipCard: React.FC<{
             )}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };
@@ -198,7 +241,7 @@ const InteractivePack: React.FC<{ onOpen: () => void, volume: number }> = ({ onO
         style={{ clipPath: 'polygon(0 19.5%, 100% 19.5%, 100% 100%, 0 100%)' }}
       >
         <img 
-          src={volume === 1 ? "/images/booster pack.webp" : "/images/vol2/booster pack vol 2.webp"} 
+          src={volume === 1 ? "/images/booster pack.webp" : volume === 2 ? "/images/vol2/booster pack vol 2.webp" : "/images/vol3/booster pack vol 3.png"} 
           alt="Booster Pack Bottom" 
           className="w-full h-full object-contain filter drop-shadow-md pointer-events-none" 
         />
@@ -218,7 +261,7 @@ const InteractivePack: React.FC<{ onOpen: () => void, volume: number }> = ({ onO
         whileHover={!isTearing ? { scale: 1.02 } : {}}
       >
         <img 
-          src={volume === 1 ? "/images/booster pack.webp" : "/images/vol2/booster pack vol 2.webp"} 
+          src={volume === 1 ? "/images/booster pack.webp" : volume === 2 ? "/images/vol2/booster pack vol 2.webp" : "/images/vol3/booster pack vol 3.png"} 
           alt="Booster Pack Top" 
           className="w-full h-full object-contain filter drop-shadow-md" 
         />
@@ -255,7 +298,7 @@ export const Gacha: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const volume = location.state?.volume || 1;
-  const pityCount = useEnergyStore((s) => volume === 2 ? s.pityCountVol2 : s.pityCountVol1);
+  const pityCount = useEnergyStore((s) => volume === 3 ? s.pityCountVol3 : volume === 2 ? s.pityCountVol2 : s.pityCountVol1);
   const incrementPity = useEnergyStore((s) => s.incrementPity);
   const resetPity = useEnergyStore((s) => s.resetPity);
   const consumeGacha = useEnergyStore((s) => s.consumeGacha);
@@ -401,7 +444,7 @@ export const Gacha: React.FC = () => {
             {pityCount >= 20 ? (
               <span className="text-[#d7b73b] animate-pulse">PITY ACTIVE!</span>
             ) : (
-              <span>UR / Legendary Guaranteed</span>
+              <span>Jaminan SR Ke Atas</span>
             )}
           </div>
           <div className="w-full h-[6px] bg-white/10 rounded-full overflow-hidden border border-white/5 relative">

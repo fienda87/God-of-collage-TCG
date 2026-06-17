@@ -1,5 +1,5 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import './CircularGallery.css';
 
@@ -561,6 +561,20 @@ class App {
     window.removeEventListener('touchstart', this.boundOnTouchDown);
     window.removeEventListener('touchmove', this.boundOnTouchMove);
     window.removeEventListener('touchend', this.boundOnTouchUp);
+    
+    // Clean up WebGL resources
+    if (this.planeGeometry) {
+      this.planeGeometry.remove();
+    }
+    
+    // Explicitly lose the context to free all GPU resources and prevent context limit leaks
+    if (this.gl) {
+      const loseContextExt = this.gl.getExtension('WEBGL_lose_context');
+      if (loseContextExt) {
+        loseContextExt.loseContext();
+      }
+    }
+    
     if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
     }
@@ -579,8 +593,18 @@ export default function CircularGallery({
   mysteryMode = false
 }) {
   const containerRef = useRef(null);
+  const [shouldRender, setShouldRender] = useState(false);
+
   useEffect(() => {
-    if (!containerRef.current) return;
+    // Delay initialization by 400ms to allow Framer Motion slide-in animations to run smoothly
+    const timer = setTimeout(() => {
+      setShouldRender(true);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!shouldRender || !containerRef.current) return;
     let app;
     let isMounted = true;
     resolveFont(font, fontUrl).then(resolvedFont => {
@@ -600,6 +624,16 @@ export default function CircularGallery({
       isMounted = false;
       if (app) app.destroy();
     };
-  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, mysteryMode]);
-  return <div className="circular-gallery" ref={containerRef} />;
+  }, [shouldRender, items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, mysteryMode]);
+
+  return (
+    <div 
+      className="circular-gallery" 
+      ref={containerRef} 
+      style={{ 
+        opacity: shouldRender ? 1 : 0, 
+        transition: 'opacity 0.6s ease-in-out' 
+      }} 
+    />
+  );
 }
