@@ -54,7 +54,7 @@ export const Home: React.FC = () => {
     const seenImages = new Set<string>();
 
     const premiumCards = ALL_CARDS.filter(
-      (c) => c.rarity === 'Exclusive Legendary' || c.rarity === 'Ultra Rare' || c.rarity === 'Super Rare'
+      (c) => c.rarity === 'Special Mythical' || c.rarity === 'Exclusive Legendary' || c.rarity === 'Ultra Rare' || c.rarity === 'Super Rare'
     );
 
     for (const card of premiumCards) {

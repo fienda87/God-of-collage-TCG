@@ -4,10 +4,10 @@ import { CardDetailModal } from '../components/modals/CardDetailModal';
 import { ALL_CARDS, type CardData, ELEMENT_COLORS, RARITY_COLORS } from '../data/cards';
 import { useCollectionStore } from '../store/collectionStore';
 import { DropdownNavigation } from '../components/ui/dropdown-navigation';
-import { Layers, Flame, Coffee, Heart, Star, Package, Book, BookOpen, Circle, Triangle, Hexagon, Diamond, Crown } from 'lucide-react';
+import { Layers, Flame, Coffee, Heart, Star, Package, Book, BookOpen, Circle, Triangle, Hexagon, Diamond, Crown, Sparkles } from 'lucide-react';
 
 const ELEMENTS = ['Ambis', 'Santuy', 'Bucin', 'Event', 'Item'] as const;
-const RARITIES = ['Common', 'Rare', 'Super Rare', 'Ultra Rare', 'Exclusive Legendary'] as const;
+const RARITIES = ['Common', 'Rare', 'Super Rare', 'Ultra Rare', 'Exclusive Legendary', 'Special Mythical'] as const;
 
 
 export const Collection: React.FC = () => {
@@ -90,6 +90,7 @@ export const Collection: React.FC = () => {
             { label: "Super Rare", description: "IPK 3.5", icon: Hexagon, onClick: () => setFilterRarity('Super Rare'), isActive: filterRarity === 'Super Rare' },
             { label: "Ultra Rare", description: "IPK 4", icon: Diamond, onClick: () => setFilterRarity('Ultra Rare'), isActive: filterRarity === 'Ultra Rare' },
             { label: "Ex. Legendary", description: "IPK 4 EX", icon: Crown, onClick: () => setFilterRarity('Exclusive Legendary'), isActive: filterRarity === 'Exclusive Legendary' },
+            { label: "Sp. Mythical", description: "IPK Cumlaude", icon: Sparkles, onClick: () => setFilterRarity('Special Mythical'), isActive: filterRarity === 'Special Mythical' },
           ]
         }
       ]

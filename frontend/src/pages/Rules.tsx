@@ -138,7 +138,7 @@ const faqItems: AccordionItem[] = [
         <p className="mb-2">Setiap booster pack berisi 5 slot kartu dengan peluang kelangkaan sebagai berikut:</p>
         <ul className="list-none p-0 m-0">
           <li className="mb-2">• <strong>Slot 1 s/d 4 (Maks. SR):</strong> Common (70%), Rare (20%), Super Rare (10%)</li>
-          <li>• <strong>Slot 5 (Maks. Legendary):</strong> Common (70%), Rare (18%), Super Rare (7%), Ultra Rare (4.5%), Exclusive Legendary (0.5%)</li>
+          <li>• <strong>Slot 5 (Maks. Mythical):</strong> Common (70%), Rare (18%), Super Rare (7%), Ultra Rare (4.5%), Exclusive Legendary (0.4%), Special Mythical (0.1%)</li>
         </ul>
       </div>
     ),
@@ -172,7 +172,7 @@ const faqItems: AccordionItem[] = [
   {
     title: "Bakat Bawaan (Passive Abilities)",
     content: (
-      <p>Efek pasif permanen khusus untuk kartu tingkat kelangkaan premium (Super Rare, Ultra Rare, Exclusive Legendary). Berjalan otomatis tanpa <em>cost</em> SKS, dan banyak yang tetap aktif meski kartu di <em>bench</em>.</p>
+      <p>Efek pasif permanen khusus untuk kartu tingkat kelangkaan premium (Super Rare, Ultra Rare, Exclusive Legendary, Special Mythical). Berjalan otomatis tanpa <em>cost</em> SKS, dan banyak yang tetap aktif meski kartu di <em>bench</em>.</p>
     ),
   },
   {
@@ -181,9 +181,9 @@ const faqItems: AccordionItem[] = [
       <div>
         <p className="mb-2">Sistem Pity (Jaminan) membantu kamu mendapatkan kartu langka jika kurang beruntung:</p>
         <ul className="list-none p-0 m-0">
-          <li className="mb-2">• Setiap kali kamu membuka booster pack tanpa mendapatkan kartu <strong>Super Rare (SR), Ultra Rare (UR), atau Exclusive Legendary</strong>, pity meter kamu akan bertambah <strong>+1</strong>.</li>
-          <li className="mb-2">• Jika pity meter mencapai <strong>20/20</strong>, maka di pembukaan pack berikutnya (gacha ke-21), Slot ke-3, ke-4, dan ke-5 kartu dijamin 100% adalah kartu tingkat tinggi dengan peluang masing-masing: <strong>SR (65%), UR (25%), atau Exclusive Legendary (10%)</strong>.</li>
-          <li>• Jika kamu mendapatkan kartu SR, UR, atau Exclusive Legendary secara alami di tengah jalan sebelum mencapai 20 pulls, pity meter akan <strong>langsung kembali ke 0</strong>.</li>
+          <li className="mb-2">• Setiap kali kamu membuka booster pack tanpa mendapatkan kartu <strong>Super Rare (SR), Ultra Rare (UR), Exclusive Legendary, atau Special Mythical</strong>, pity meter kamu akan bertambah <strong>+1</strong>.</li>
+          <li className="mb-2">• Jika pity meter mencapai <strong>20/20</strong>, maka di pembukaan pack berikutnya (gacha ke-21), Slot ke-3, ke-4, dan ke-5 kartu dijamin 100% adalah kartu tingkat tinggi dengan peluang masing-masing: <strong>SR (65%), UR (25%), Exclusive Legendary (7.5%), atau Special Mythical (2.5%)</strong>.</li>
+          <li>• Jika kamu mendapatkan kartu SR, UR, Exclusive Legendary, atau Special Mythical secara alami di tengah jalan sebelum mencapai 20 pulls, pity meter akan <strong>langsung kembali ke 0</strong>.</li>
         </ul>
       </div>
     ),
@@ -199,8 +199,9 @@ const faqItems: AccordionItem[] = [
           <li className="mb-2">• 🟣 <strong>Super Rare (SR) Duplicate:</strong> +15 IP Points</li>
           <li className="mb-2">• 🟡 <strong>Ultra Rare (UR) Duplicate:</strong> +50 IP Points</li>
           <li>• 🔴 <strong>Exclusive Legendary Duplicate:</strong> +200 IP Points</li>
+          <li>• 💎 <strong>Special Mythical Duplicate:</strong> +500 IP Points</li>
         </ul>
-        <p>Gunakan IP Points di halaman <strong>Shop</strong> untuk membeli kartu langka secara langsung, atau membeli <strong>Booster Pack Vol 1, Vol 2, & Vol 3</strong>.</p>
+        <p>Gunakan IP Points di halaman <strong>Shop</strong> untuk membeli kartu langka secara langsung, atau membeli <strong>Booster Pack Vol 1, Vol 2, & Vol 3</strong>. <em>(Catatan: kartu Special Mythical tidak tersedia di Shop, hanya bisa didapatkan melalui gacha Vol 3.)</em></p>
       </div>
     ),
   },
@@ -349,6 +350,10 @@ export const Rules: React.FC = () => {
           <div className="bg-white rounded-[13px] p-5 shadow-[rgb(0,0,0)_0px_0px_0px_2px_inset] border-2 border-[#d7b73b]">
             <h3 className="text-[20px] font-[800] text-black m-0 mb-2">Stage 2 — Semester Akhir (Ultra Rare) ⭐</h3>
             <p className="text-[14px] font-[400] text-black/70 m-0">Legenda kampus. Skill devastating, HP tertinggi. Gold aura + holographic shimmer!</p>
+          </div>
+          <div className="bg-white rounded-[13px] p-5 shadow-[rgb(0,0,0)_0px_0px_0px_2px_inset] border-2 border-[#ff6bcb]">
+            <h3 className="text-[20px] font-[800] text-black m-0 mb-2">Special Mythical — Tag Team (IPK Cumlaude) 💎✨</h3>
+            <p className="text-[14px] font-[400] text-black/70 m-0">Kartu paling langka! Tag Team legendaris dengan HP 200 dan skill gabungan devastasi. Eksklusif hanya dari gacha Booster Pack Vol 3. Prismatic pink aura!</p>
           </div>
         </div>
       </section>

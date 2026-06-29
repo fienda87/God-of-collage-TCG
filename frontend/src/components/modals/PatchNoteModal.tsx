@@ -51,7 +51,7 @@ export const PatchNoteModal: React.FC<PatchNoteModalProps> = ({ isOpen, onClose 
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">📢</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-[#d7b73b] tracking-tight">PATCH NOTES UPDATE v3.0</h2>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-[#d7b73b] tracking-tight">PATCH NOTES UPDATE v3.1</h2>
               </div>
               <p className="text-sm md:text-base font-semibold text-white/80 uppercase tracking-widest">New Journey Skripsi</p>
             </div>
@@ -69,7 +69,7 @@ export const PatchNoteModal: React.FC<PatchNoteModalProps> = ({ isOpen, onClose 
             {/* Intro */}
             <div className="bg-white/5 border border-white/10 p-5 rounded-xl text-[15px] leading-relaxed">
               <p>
-                <strong>Selamat datang di Kawan TCG Vol 3: New Journey Skripsi!</strong> Update kali ini bertemakan akhir perjuangan mahasiswa di bangku kuliah—Skripsi. Kami menghadirkan total 32 kartu baru, 2 karakter baru dengan mekanik elemen tersendiri, optimalisasi performa rendering, serta animasi interaktif baru saat membuka pack.
+                <strong>Selamat datang di Kawan TCG Vol 3: New Journey Skripsi!</strong> Update kali ini bertemakan akhir perjuangan mahasiswa di bangku kuliah—Skripsi. Kami menghadirkan total 32 kartu baru, 2 karakter baru, serta <strong className="text-[#ff6bcb]">2 kartu Tag Team SPECIAL MYTHICAL</strong> ultra-langka eksklusif Booster Pack Vol 3!
               </p>
             </div>
 
@@ -124,6 +124,48 @@ export const PatchNoteModal: React.FC<PatchNoteModalProps> = ({ isOpen, onClose 
                   <p className="text-white/70 text-[15px] leading-relaxed">
                     Perpindahan antar halaman kembali ke Home sekarang jauh lebih mulus berkat optimalisasi galeri WebGL (dibatasi 12 kartu premium terbaik), penundaan inisialisasi selama 400ms untuk memberi ruang bagi transisi halaman, dan pembersihan memori GPU instan pada unmount.
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 0.5: Special Mythical */}
+            <section className="space-y-4">
+              <h3 className="text-xl md:text-2xl font-bold text-[#ff6bcb] flex items-center gap-3 border-b border-white/10 pb-3">
+                <span className="bg-[#ff6bcb]/20 p-2 rounded-lg">💎</span> [NEW] TIER BARU: SPECIAL MYTHICAL
+              </h3>
+              
+              <div className="pl-2 space-y-6">
+                <div>
+                  <h4 className="text-lg font-bold text-white flex items-center gap-2 mb-2">
+                    <span>🏆</span> Tier Paling Langka — Di Atas Exclusive Legendary
+                  </h4>
+                  <p className="text-white/70 mb-3 text-[15px] leading-relaxed">
+                    Kami memperkenalkan tier kartu <strong className="text-[#ff6bcb]">Special Mythical (IPK Cumlaude)</strong> sebagai tier tertinggi dan paling langka di game! Kartu ini bertipe <strong>Tag Team</strong> dengan HP 200 dan skill gabungan yang sangat kuat.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div className="bg-gradient-to-br from-[#ff6bcb]/10 to-purple-500/10 p-4 rounded-xl border border-[#ff6bcb]/30">
+                      <span className="font-extrabold text-[#ff6bcb] text-lg block mb-1">🤝 Sagab & Mikel S.KOM</span>
+                      <span className="text-xs text-white/40 block mb-1">Tag Team • Santuy • HP 200</span>
+                      <span className="text-sm text-white/60">Duo legendaris S.Kom yang menyelesaikan deadline mutlak bersama dengan Coretan Suci Tomsamchong.</span>
+                    </div>
+                    <div className="bg-gradient-to-br from-[#ff6bcb]/10 to-purple-500/10 p-4 rounded-xl border border-[#ff6bcb]/30">
+                      <span className="font-extrabold text-[#ff6bcb] text-lg block mb-1">🤝 Master x Slave S.KOM</span>
+                      <span className="text-xs text-white/40 block mb-1">Tag Team • Bucin • HP 200</span>
+                      <span className="text-sm text-white/60">Tuan dan budak yang saling melengkapi. PC dijual, nego tipis. Ghosting + Deadline Mutlak.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-[#ff6bcb]/10 border border-[#ff6bcb]/20 rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-[#ff6bcb] flex items-center gap-2 mb-2 uppercase tracking-wide">
+                    ⚠️ Syarat & Ketentuan
+                  </h4>
+                  <ul className="text-sm text-white/70 space-y-1 list-disc list-inside">
+                    <li><strong>Eksklusif Booster Pack Vol 3</strong> — hanya bisa didapatkan dari gacha Vol 3.</li>
+                    <li><strong>Tidak bisa dibeli di Toko</strong> — murni dari gacha saja.</li>
+                    <li><strong>Rate Normal:</strong> 0.1% (hanya di Slot 5).</li>
+                    <li><strong>Rate Pity:</strong> 2.5% (saat pity 20/20 aktif, berlaku di Slot 3, 4, 5).</li>
+                  </ul>
                 </div>
               </div>
             </section>

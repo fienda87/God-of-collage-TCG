@@ -11,8 +11,9 @@ import EvilEye from '../components/ui/EvilEye';
 const RarityAura: React.FC<{ rarity: CardData['rarity'] }> = ({ rarity }) => {
   const color = RARITY_COLORS[rarity];
   const isLegendary = rarity === 'Exclusive Legendary';
+  const isMythical = rarity === 'Special Mythical';
   const isUltra = rarity === 'Ultra Rare';
-  const count = isLegendary ? 28 : isUltra ? 22 : rarity === 'Super Rare' ? 18 : 14;
+  const count = isMythical ? 35 : isLegendary ? 28 : isUltra ? 22 : rarity === 'Super Rare' ? 18 : 14;
 
   return (
     <div className="absolute inset-[-40px] pointer-events-none flex items-center justify-center">
@@ -189,7 +190,7 @@ const FlipCard: React.FC<{
                 <p className="text-[10px] md:text-[11px] font-[800] m-0 mt-0.5" style={{ color: rarityColor }}>{card.rarityLabel}</p>
               )}
             </div>
-            {(card.rarity === 'Ultra Rare' || card.rarity === 'Exclusive Legendary') && (
+            {(card.rarity === 'Ultra Rare' || card.rarity === 'Exclusive Legendary' || card.rarity === 'Special Mythical') && (
               <motion.div
                 className="absolute inset-0 pointer-events-none mix-blend-screen"
                 style={{
@@ -224,8 +225,8 @@ const InteractivePack: React.FC<{ onOpen: () => void, volume: number }> = ({ onO
     <motion.div
       initial={{ y: -200, opacity: 0, rotate: -5, x: '-50%' }}
       animate={{ y: '-50%', opacity: 1, rotate: 0, x: '-50%' }}
-      exit={{ scale: 1.5, opacity: 0, filter: 'blur(10px)' }}
-      transition={{ type: 'spring', damping: 15 }}
+      exit={{ scale: 1.1, opacity: 0 }}
+      transition={{ type: 'spring', damping: 20 }}
       className="absolute top-1/2 left-1/2 w-[220px] h-[330px] sm:w-[280px] sm:h-[420px] md:w-[320px] md:h-[480px] drop-shadow-2xl z-20"
     >
       {/* Glow Behind */}
@@ -303,6 +304,23 @@ export const Gacha: React.FC = () => {
   const resetPity = useEnergyStore((s) => s.resetPity);
   const consumeGacha = useEnergyStore((s) => s.consumeGacha);
   const canOpen = useEnergyStore((s) => s.canOpenGacha());
+  const [prePulledCards, setPrePulledCards] = useState<CardData[]>([]);
+
+  // Pre-generate cards to preload images and prevent lag during transition
+  useEffect(() => {
+    const isShopPurchase = location.state?.isShopPurchase || false;
+    if (phase === 'pack' && (canOpen || isShopPurchase)) {
+      const isPityActive = pityCount >= 20;
+      const cards = generatePull(volume, isPityActive);
+      setPrePulledCards(cards);
+
+      // Preload images in background
+      cards.forEach((card) => {
+        const img = new Image();
+        img.src = card.image_url;
+      });
+    }
+  }, [phase, volume, pityCount, canOpen, location.state]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -322,39 +340,45 @@ export const Gacha: React.FC = () => {
   const handlePackOpen = useCallback(() => {
     const isShopPurchase = location.state?.isShopPurchase || false;
     const isPityActive = pityCount >= 20;
-    const cards = generatePull(volume, isPityActive);
+    
+    // Use pre-pulled cards if available, otherwise generate on the fly
+    const cards = prePulledCards.length > 0 ? prePulledCards : generatePull(volume, isPityActive);
     setPulledCards(cards);
+    
     if (!isShopPurchase) {
       consumeGacha();
     }
     
-    // Save to collection and calculate duplicates reward
-    import('../store/collectionStore').then(({ useCollectionStore }) => {
-      const existingCards = useCollectionStore.getState().cards;
-      
-      let calculatedPoints = 0;
-      const addedInThisPull: string[] = [];
-      
-      cards.forEach(card => {
-        const isDupe = existingCards.some(ec => ec.name === card.name) || addedInThisPull.includes(card.name);
-        if (isDupe) {
-          let pts = 1;
-          if (card.rarity === 'Rare') pts = 5;
-          else if (card.rarity === 'Super Rare') pts = 15;
-          else if (card.rarity === 'Ultra Rare') pts = 50;
-          else if (card.rarity === 'Exclusive Legendary') pts = 200;
-          calculatedPoints += pts;
-        } else {
-          addedInThisPull.push(card.name);
+    // Defer store update slightly to prevent blocking the initial card fly-in animation
+    setTimeout(() => {
+      import('../store/collectionStore').then(({ useCollectionStore }) => {
+        const existingCards = useCollectionStore.getState().cards;
+        
+        let calculatedPoints = 0;
+        const addedInThisPull: string[] = [];
+        
+        cards.forEach(card => {
+          const isDupe = existingCards.some(ec => ec.name === card.name) || addedInThisPull.includes(card.name);
+          if (isDupe) {
+            let pts = 1;
+            if (card.rarity === 'Rare') pts = 5;
+            else if (card.rarity === 'Super Rare') pts = 15;
+            else if (card.rarity === 'Ultra Rare') pts = 50;
+            else if (card.rarity === 'Exclusive Legendary') pts = 200;
+            else if (card.rarity === 'Special Mythical') pts = 500;
+            calculatedPoints += pts;
+          } else {
+            addedInThisPull.push(card.name);
+          }
+        });
+        
+        useCollectionStore.getState().setCards([...existingCards, ...cards]);
+        if (calculatedPoints > 0) {
+          useCollectionStore.getState().addIpPoints(calculatedPoints);
         }
+        setEarnedPoints(calculatedPoints);
       });
-      
-      useCollectionStore.getState().setCards([...existingCards, ...cards]);
-      if (calculatedPoints > 0) {
-        useCollectionStore.getState().addIpPoints(calculatedPoints);
-      }
-      setEarnedPoints(calculatedPoints);
-    });
+    }, 150);
 
     if (isPityActive) {
       resetPity(volume);
@@ -363,7 +387,7 @@ export const Gacha: React.FC = () => {
     }
     
     setPhase('reveal');
-  }, [consumeGacha, volume, pityCount, incrementPity, resetPity]);
+  }, [consumeGacha, volume, pityCount, incrementPity, resetPity, prePulledCards, location.state]);
 
   const handleCardFlip = useCallback(() => {
     setFlippedCount((prev) => {

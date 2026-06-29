@@ -26,6 +26,7 @@ export const BoosterInfoModal: React.FC<BoosterInfoModalProps> = ({ isOpen, onCl
     const cards = ALL_CARDS.filter((c) => c.volume === volume);
 
     const groups: Record<string, typeof cards> = {
+      'Special Mythical': [],
       'Exclusive Legendary': [],
       'Ultra Rare': [],
       'Super Rare': [],
@@ -131,7 +132,7 @@ export const BoosterInfoModal: React.FC<BoosterInfoModalProps> = ({ isOpen, onCl
                   </div>
 
                   <div className="bg-black/30 border border-white/5 rounded-lg p-3">
-                    <span className="font-bold text-white block mb-2 text-xs text-white/50 uppercase">Slot 5 (Maks. Legendary)</span>
+                    <span className="font-bold text-white block mb-2 text-xs text-white/50 uppercase">Slot 5 (Maks. Mythical)</span>
                     <ul className="space-y-1 text-xs">
                       <li className="flex justify-between border-b border-white/5 pb-1">
                         <span>⚪ Common</span>
@@ -149,9 +150,13 @@ export const BoosterInfoModal: React.FC<BoosterInfoModalProps> = ({ isOpen, onCl
                         <span className="text-[#eab308]">🟡 Ultra Rare (UR)</span>
                         <span className="font-bold text-white">4.5%</span>
                       </li>
-                      <li className="flex justify-between">
+                      <li className="flex justify-between border-b border-white/5 pb-1">
                         <span className="text-[#ef4444]">🔴 Legendary (EX)</span>
-                        <span className="font-bold text-white">0.5%</span>
+                        <span className="font-bold text-white">0.4%</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span className="text-[#ff6bcb]">💎 Special Mythical</span>
+                        <span className="font-bold text-white">0.1%</span>
                       </li>
                     </ul>
                   </div>
@@ -165,7 +170,7 @@ export const BoosterInfoModal: React.FC<BoosterInfoModalProps> = ({ isOpen, onCl
                   <p className="text-xs text-white/60 mb-2 leading-relaxed">
                     Saat jaminan pity aktif (20/20), gacha berikutnya akan menjamin <strong>Slot 3, 4, dan 5</strong> sebagai kartu premium dengan persentase:
                   </p>
-                  <ul className="grid grid-cols-3 gap-2 text-center text-xs">
+                  <ul className="grid grid-cols-4 gap-2 text-center text-xs">
                     <div className="bg-black/40 border border-white/5 rounded p-2">
                       <span className="block text-[#a855f7] font-bold">SR</span>
                       <span className="font-extrabold text-white text-sm">60%</span>
@@ -176,7 +181,11 @@ export const BoosterInfoModal: React.FC<BoosterInfoModalProps> = ({ isOpen, onCl
                     </div>
                     <div className="bg-black/40 border border-white/5 rounded p-2">
                       <span className="block text-[#ef4444] font-bold">Legendary</span>
-                      <span className="font-extrabold text-white text-sm">15%</span>
+                      <span className="font-extrabold text-white text-sm">10%</span>
+                    </div>
+                    <div className="bg-black/40 border border-[#ff6bcb]/30 rounded p-2">
+                      <span className="block text-[#ff6bcb] font-bold">Mythical</span>
+                      <span className="font-extrabold text-white text-sm">2.5%</span>
                     </div>
                   </ul>
                   <p className="text-[10px] text-white/40 mt-2 text-center">

@@ -17,6 +17,7 @@ const RARITY_PRICE: Record<string, number> = {
   'Super Rare': 150,
   'Ultra Rare': 500,
   'Exclusive Legendary': 1500,
+  'Special Mythical': 0, // Not for sale
 };
 
 const DUPLICATE_POINTS: Record<string, number> = {
@@ -25,6 +26,7 @@ const DUPLICATE_POINTS: Record<string, number> = {
   'Super Rare': 15,
   'Ultra Rare': 50,
   'Exclusive Legendary': 200,
+  'Special Mythical': 500,
 };
 
 export const Shop: React.FC = () => {
